@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'debug' => env('APP_DEBUG'),
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -81,6 +81,8 @@ return [
 	'key' => env('APP_KEY', 'SomeRandomString'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
+
+	'password_salt' =>  'la@shoping',
 
 	/*
 	|--------------------------------------------------------------------------
