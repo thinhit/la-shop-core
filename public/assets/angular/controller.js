@@ -114,16 +114,23 @@ idsCore
                 },
                 {
                     id: 1,
-                    title: 'Forms',
+                    title: 'Sản phẩm',
                     icon: 'icon_document_alt first_level_icon',
                     submenu_title: 'Forms',
                     submenu: [
                         {
-                            title: 'Regular Elements',
-                            link: 'auth.forms.regular_elements'
+                            title: 'Danh sách sản phẩm',
+                            link: 'auth.product.list'
                         }
                     ]
+                },
+                {
+                    id: 99,
+                    title: 'Cấu hình',
+                    icon: '  icon_adjust-horiz first_level_icon',
+                    link: 'auth.home'
                 }
+
             ];
 
             // accordion menu
