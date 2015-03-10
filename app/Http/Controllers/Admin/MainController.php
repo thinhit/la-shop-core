@@ -31,7 +31,7 @@ class MainController extends Controller {
 	 */
 	public function getIndex()
 	{
-		return view('home');
+		return view('admin.index');
 	}
 
 	public function getCreate(){
