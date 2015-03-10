@@ -2,7 +2,7 @@
 idsCore
     .config(['$stateProvider', '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
-
+            var titlePrefix = 'idShop';
             // Use $urlRouterProvider to configure any redirects (when) and invalid urls (otherwise).
             $urlRouterProvider
                 .when('/home', '/')
@@ -12,7 +12,7 @@ idsCore
             $stateProvider
                 // Login Page
                 .state("login", {
-                    page_title: 'Yukon Admin - Login Page',
+                    page_title: titlePrefix + ' - Login Page',
                     url: "/login",
                     templateUrl: 'views/login.html',
                     controller: 'loginCtrl'
@@ -25,7 +25,7 @@ idsCore
                 })
                 // Errors > 404
                 .state("error.404", {
-                    page_title: 'Yukon Admin - Error 404',
+                    page_title: titlePrefix + ' - Error 404',
                     url: "/404",
                     templateUrl: 'views/error.404.html'
                 })
@@ -39,12 +39,12 @@ idsCore
                 // Dashboard
                 .state("auth.home", {
                     // this state page title
-                    page_title: 'Yukon Admin - Dashboard',
+                    page_title: titlePrefix + ' - Dashboard',
                     // this state url
                     url: "/",
                     templateUrl: 'views/dashboard.html',
                     data: {
-                        ncyBreadcrumbLabel: 'Home'
+                        ncyBreadcrumbLabel: 'Trang quản lý'
                     },
                     // load state specific js/css
                     resolve: {
@@ -79,9 +79,9 @@ idsCore
                 })
                 // Forms > Regular Elements
                 .state('auth.forms.regular_elements', {
-                    page_title: 'Yukon Admin - Forms Regular Elements',
+                    page_title: titlePrefix + ' - Sản phẩm',
                     data: {
-                        ncyBreadcrumbLabel: 'Regular Elements'
+                        ncyBreadcrumbLabel: 'Danh sách sản phẩm'
                     },
                     // this url is appended to parent url (/forms/regular_elements)
                     url: '/regular_elements',

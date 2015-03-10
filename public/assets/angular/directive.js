@@ -6,7 +6,7 @@ idsCore
         return {
             link: function (scope, element) {
                 var listener = function (event, toState, toParams, fromState, fromParams) {
-                    var title = 'Yukon Admin';
+                    var title = 'Trang quản lý';
                     if (toState.page_title) {
                         title = toState.page_title;
                     }
