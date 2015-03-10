@@ -1,5 +1,5 @@
 /* Factories */
-yukonApp
+idsCore
     .factory('utils', function () {
         return {
             // Util for finding an object by its 'id' property among an array

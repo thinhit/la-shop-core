@@ -1,6 +1,6 @@
 /* Directives */
 
-yukonApp
+idsCore
     // change page title
     .directive('updateTitle', function ($rootScope) {
         return {

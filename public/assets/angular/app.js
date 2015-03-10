@@ -1,8 +1,8 @@
 "use strict";
-var yukonApp = angular.module('yukonApp', [ 'ui.router', 'ngAnimate', 'ui.load', 'ngSanitize', 'ngCookies', 'ui.bootstrap', 'ncy-angular-breadcrumb', 'ngRetina', 'angular-growl', 'NgSwitchery', 'textAngular']);
+var idsCore = angular.module('idsCore', [ 'ui.router', 'ngAnimate', 'ui.load', 'ngSanitize', 'ngCookies', 'ui.bootstrap', 'ncy-angular-breadcrumb', 'ngRetina', 'angular-growl', 'NgSwitchery', 'textAngular']);
 
 /* Run Block */
-yukonApp.run(
+idsCore.run(
     [ '$rootScope', '$state', '$stateParams',
         function ($rootScope, $state, $stateParams) {
 
@@ -50,7 +50,7 @@ yukonApp.run(
     ]
 );
 
-yukonApp
+idsCore
     /* Breadcrumbs options */
     .config(function($breadcrumbProvider) {
         $breadcrumbProvider.setOptions({
@@ -76,7 +76,7 @@ yukonApp
     ]);
 
 /* filters */
-yukonApp
+idsCore
     // https://github.com/angular-ui/ui-utils
     .filter('unique', ['$parse', function ($parse) {
         return function (items, filterOn) {

@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html ng-app="yukonApp" controller="mainCtrl">
+<html ng-app="idsCore" controller="mainCtrl">
     <head>
 		<meta charset="UTF-8">
 		<title update-title></title>
 		<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-         
-
-    <!-- favicon -->
+        <!-- favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
-	<!-- bootstrap framework -->
+	   <!-- bootstrap framework -->
 		<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 		
-	<!-- icon sets -->
+	   <!-- icon sets -->
 		<!-- elegant icons -->
 			<link href="assets/icons/elegant/style.css" rel="stylesheet" media="screen">
 		<!-- elusive icons -->
@@ -43,7 +41,7 @@
         <script src="assets/angular/plugins/breadcrumbs/angular-breadcrumb.min.js"></script>
     <!-- ui-bootstrap -->
         <script src="assets/angular/plugins/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
-        <!--<script id="template/accordion/accordion-group.html" type="text/ng-template">
+        <script id="template/accordion/accordion-group.html" type="text/ng-template">
             <div class="panel panel-default" ng-class="{'panel-active': isOpen}">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -54,7 +52,7 @@
                     <div class="panel-body" ng-transclude></div>
                 </div>
             </div>
-        </script>-->
+        </script>
     <!-- retina images -->
         <script src="assets/angular/plugins/retina/angular-retina.min.js"></script>
     <!-- angular growl -->
