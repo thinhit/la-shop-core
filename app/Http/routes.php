@@ -24,7 +24,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()
 
 });
 
-/*API*/
+/*Admin*/
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function()
 {	

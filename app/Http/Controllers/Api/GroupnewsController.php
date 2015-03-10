@@ -40,7 +40,11 @@ class GroupnewsController extends Controller {
 
 	public function getViewall() {
 		$data = Models\Group_news::all();
-		$arr = array('error' => true,'message'=>"test",'data'=>$data);
+		if(empty($data)) {
+			$arr = array('error' => false,'message'=>"Error",'data'=>$data);
+		} else {
+			$arr = array('error' => true,'message'=>"Done",'data'=>$data);
+		}
 		return json_encode($arr);
 	}
 
