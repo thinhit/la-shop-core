@@ -5,7 +5,7 @@
 		<title update-title></title>
 		<meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-         <base href="http://localhost:8000/admin/">
+         
 
     <!-- favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
