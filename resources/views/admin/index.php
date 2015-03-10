@@ -80,6 +80,8 @@
         <script src="assets/angular/directive.js"></script>
         <script src="assets/angular/state.js"></script>
         <script src="assets/angular/controller.js"></script>
+        <script src='assets/angular/app/controllers/product.list.controller.js'></script>
+        
 
     <!-- google maps api-->
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
