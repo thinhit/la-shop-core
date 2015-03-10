@@ -71,21 +71,21 @@ idsCore
                     controller: 'dashboardCtrl'
                 })
                 // Forms (parent state)
-                .state('auth.forms', {
+                .state('auth.product', {
                     // With abstract set to true, that means this state can not be explicitly activated.
                     abstract: true,
-                    url: '/forms',
+                    url: '/product',
                     template: '<div ui-view autoscroll="false" class="mainView-animate"></div>'
                 })
                 // Forms > Regular Elements
-                .state('auth.forms.regular_elements', {
+                .state('auth.product.list', {
                     page_title: titlePrefix + ' - Sản phẩm',
                     data: {
                         ncyBreadcrumbLabel: 'Danh sách sản phẩm'
                     },
                     // this url is appended to parent url (/forms/regular_elements)
-                    url: '/regular_elements',
-                    templateUrl: 'views/forms.regular_elements.html'
+                    url: '/list',
+                    templateUrl: 'views/product.list.html'
                 })       
         }
     ]);
