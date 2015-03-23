@@ -85,6 +85,7 @@ idsCore
                     },
                     // this url is appended to parent url (/forms/regular_elements)
                     url: '/list',
+<<<<<<< HEAD
                     templateUrl: 'views/product.list.html'
                 })
 
@@ -106,5 +107,21 @@ idsCore
                     templateUrl: 'views/group_news.list.html'
                 })    
 
+=======
+                    
+                    templateUrl: 'views/product.list.html',
+                    /*resolve: {
+                        files: [
+                            'uiLoad',
+                            function (uiLoad) {
+                                return uiLoad.load([
+                                    
+                                ]);
+                            }
+                        ]
+                    },*/
+                    controller: 'productListController'
+                })       
+>>>>>>> 0f7b26d00adac3a38c864023238fd22976cfa77a
         }
     ]);
