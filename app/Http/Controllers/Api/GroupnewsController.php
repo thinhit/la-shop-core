@@ -45,7 +45,18 @@ class GroupnewsController extends Controller {
 	}
 
 	public function getCreate(){
-		return 2;	
+		if(isset($_POST['name']) && !empty($_POST['name'])) {
+				$Group_news = new Models\Group_news;
+				$Group_news->name        = Input::get('name');
+				$Group_news->create_time = date("Y-m-d H:i:s");
+				$rs = $Group_news->save();
+				if($rs == true) {
+					$arr = array('error' => true,'message' => 'Done');
+				} else {
+					$arr = array('error' => false,'message' => 'not Done');
+				}
+				return json_encode($arr);
+		}
 	}
 
 
