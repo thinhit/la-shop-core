@@ -34,10 +34,6 @@ class GroupnewsController extends Controller {
 		return 1;
 	}
 
-	public function getCreate(){
-		return Models\User::all();
-	}
-
 	public function getViewall() {
 		$data = Models\Group_news::all();
 		if(empty($data)) {
@@ -47,5 +43,11 @@ class GroupnewsController extends Controller {
 		}
 		return json_encode($arr);
 	}
+
+	public function getCreate(){
+		return 2;	
+	}
+
+
 
 }

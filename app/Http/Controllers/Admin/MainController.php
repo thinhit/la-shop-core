@@ -35,7 +35,7 @@ class MainController extends Controller {
 	}
 
 	public function getCreate(){
-		return Models\User::all();
+		return 1123123;
 	}
 
 }

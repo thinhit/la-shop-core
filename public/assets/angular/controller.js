@@ -125,6 +125,18 @@ idsCore
                     ]
                 },
                 {
+                    id: 1,
+                    title: 'News',
+                    icon: 'icon_document_alt first_level_icon',
+                    submenu_title: 'Forms',
+                    submenu: [
+                        {
+                            title: 'Group News ',
+                            link: 'auth.group_news.list'
+                        }
+                    ]
+                },
+                {
                     id: 99,
                     title: 'Cấu hình',
                     icon: '  icon_adjust-horiz first_level_icon',
