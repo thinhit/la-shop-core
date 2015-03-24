@@ -1,10 +1,9 @@
 /* Controllers */
 idsCore
     .controller('group_news',function($scope,$timeout) {
-        var base_url = 'http://localhost:8000/api/v1/group_news/viewall';
         $scope.group_news = [];
         $.ajax({
-            url:base_url,
+            url:base_url+'group_news/viewall',
             dataType:'json',
             success:function(e) {
                 $timeout(function() {

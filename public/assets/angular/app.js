@@ -1,4 +1,5 @@
 "use strict";
+var base_url = 'http://localhost:8000/api/v1/';
 var idsCore = angular.module('idsCore', [ 'ui.router', 'ngAnimate', 'ui.load', 'ngSanitize', 'ngCookies', 'ui.bootstrap', 'ncy-angular-breadcrumb', 'ngRetina', 'angular-growl', 'NgSwitchery', 'textAngular']);
 
 /* Run Block */
