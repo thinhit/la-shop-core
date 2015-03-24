@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-2">
+        <div class="list-group">
+            <a ui-sref="auth.plugins.tables.footable" ng-class="{ active: $state.includes('auth.plugins.tables.footable') }" class="list-group-item">Footable</a>
+            <a ui-sref="auth.plugins.tables.datatable" ng-class="{ active: $state.includes('auth.plugins.tables.datatable') }" class="list-group-item">Datatable</a>
+        </div>
+    </div>
+    <div class="col-md-10">
+        
+    
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <input id="textFilter" type="text" class="form-control input-sm">
+                <span class="help-block">Filter</span>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control input-sm" ng-change="filterTable(userStatus)" ng-model="userStatus">
+                    <option></option>
+                    <option value="active">Active</option>
+                    <option value="disabled">Disabled</option>
+                    <option value="suspended">Suspended</option>
+                </select>
+                <span class="help-block">Status</span>
+            </div>
+            <div class="col-md-3">
+                <a class="btn btn-default btn-sm" ng-click="clearFilters()">Clear</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-yuk2 toggle-arrow-tiny" id="footable_demo" data-filter="#textFilter" data-page-size="5">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>CREAT TIME</th>
+                            <th>UPDATE TIME</th>
+                            <th>EDIT</th>
+                            <th>DEL</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-controller="group_news">
+                        <tr ng-repeat="gr in group_news">
+                            <td>{{$index+1}}</td>
+                            <td>{{gr.name}}</td>
+                            <td>{{gr.create_time}}</td>
+                            <td>{{gr.update_time}}</td>
+                            <td><span class="glyphicon glyphicon-edit"></span></td>
+                            <td><span class="glyphicon glyphicon-remove"></span></td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="5">
+                                <ul class="pagination pagination-sm"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
