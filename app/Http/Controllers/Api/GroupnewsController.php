@@ -45,6 +45,7 @@ class GroupnewsController extends Controller {
 	}
 
 	public function getPost(){
+		var_dump($_POST);
 		if(isset($_POST['name']) && !empty($_POST['name'])) {
 				$Group_news = new Models\Group_news;
 				$Group_news->name        = Input::get('name');
@@ -82,7 +83,6 @@ class GroupnewsController extends Controller {
 			return false;
 		}
 		$id   = $_GET['id'];
-		$name = Input::get('name');
 		$Group_news = new Models\Group_news;
 		$Group_news = Models\Group_news::find($id);
 		$rs = $Group_news->delete();
