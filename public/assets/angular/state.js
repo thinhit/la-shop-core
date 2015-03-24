@@ -85,7 +85,19 @@ idsCore
                     },
                     // this url is appended to parent url (/forms/regular_elements)
                     url: '/list',
-                    templateUrl: 'views/product.list.html'
+                    templateUrl: 'views/product.list.html',
+                     resolve: {
+                        files: [
+                            'uiLoad',
+                            function (uiLoad) {
+                                return uiLoad.load([
+                                    // icheck
+                                    'assets/lib/iCheck/skins/minimal/blue.css',
+                                    'assets/lib/iCheck/icheck.min.js',
+                                ]);
+                            }
+                        ]
+                    },
                 })
 
                 // Forms (parent state)

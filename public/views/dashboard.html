@@ -1,4 +1,19 @@
 <div class="row">
+    <div class="col-lg-9">
+        <p class="page_heading">Tổng quan</p>
+    </div>
+    <div class="col-lg-3 lcol-sm-6">
+        <select  class="form-control">
+            <option value="1">Trong ngày</option>
+            <option value="2">Hôm qua</option>
+            <option value="2">3 ngày trước</option>
+            <option value="2">7 ngày trước</option>
+            <option value="2">1 tháng trước</option>
+            
+        </select>
+    </div>
+</div>
+<div class="row">
     <div class="col-lg-3 col-sm-6">
         <div class="info_box_var_1 box_bg_a">
             <div class="info_box_body">
@@ -6,7 +21,7 @@
                 <span class="countUpMe" data-endVal="1342">1342</span>
             </div>
             <div class="info_box_footer">
-                New Users
+                Đăng ký mới
             </div>
         </div>
     </div>
@@ -17,7 +32,7 @@
                 <span class="countUpMe" data-endVal="57">57</span>%
             </div>
             <div class="info_box_footer">
-                Orders Completed
+                Đơn đặt hàng
             </div>
         </div>
     </div>
@@ -28,8 +43,8 @@
                 $<span class="countUpMe" data-endVal="13578">13 578</span>
             </div>
             <div class="info_box_footer">
-                Sale
-                <small>(last 24h)</small>
+                Tổng tiền thu được
+                
             </div>
         </div>
     </div>
@@ -45,86 +60,78 @@
         </div>
     </div>
 </div>
-<div class="row row_full mHeight">
-    <div class="col-lg-4">
-        <div class="easy_chart_wrapper mHeight-item">
-            <div class="easy_chart_a easy_chart" data-percent="86">
-                <span class="easy_chart_percent"></span>
-            </div>
-            <div class="easy_chart_info">
-                <h4 class="easy_chart_heading">Orders completed</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam doloremque mollitia possimus tempora&hellip; <a href="#">more</a></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="easy_chart_wrapper mHeight-item">
-            <div class="easy_chart_b easy_chart" data-percent="40">
-                <span class="easy_chart_percent">136</span>
-            </div>
-            <div class="easy_chart_info">
-                <h4 class="easy_chart_heading">Confirmed registrations</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam doloremque mollitia possimus tempora&hellip; <a href="#">more</a></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="easy_chart_wrapper mHeight-item">
-            <div class="easy_chart_c easy_chart" data-percent="72">
-                <span class="easy_chart_icon icon_chat_alt"></span>
-            </div>
-            <div class="easy_chart_info">
-                <h4 class="easy_chart_heading">New comments</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam doloremque mollitia possimus tempora&hellip; <a href="#">more</a></p>
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="row">
     <div class="col-md-12">
-        <div class="heading_a"><span class="heading_text">Audience (location)</span></div>
+        <div class="heading_a"><span class="heading_text">Danh sách đơn hàng mới nhất</span></div>
         <div class="row">
-            <div class="col-md-8">
-                <div id="world_map_vector" style="width:100%;height:300px" ng-init="countries_data = {'US': 2320, 'BR': 1945, 'IN': 1779, 'AU': 1486, 'TR': 1024, 'CN': 753}"></div>
-            </div>
-            <div class="col-md-4">
+            
+            <div class="col-md-12">
                 <table class="table table-yuk">
                     <thead>
                     <tr>
-                        <th colspan="2">Location</th>
-                        <th>Visits</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày mua</th>
+                        <th>Tổng tiền</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="cw"><span class="flag-US"></span></td>
-                        <td>United States</td>
-                        <td>2320</td>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nguyễn Văn Thịnh</td>
+                        <td><span class="label label-info">Chờ xử lý</span></td>
+                        <td>3 tiếng trước</td>
+                        <td>368.000 đ</td>
                     </tr>
+
                     <tr>
-                        <td class="cw"><span class="flag-BR"></span></td>
-                        <td>Brazil</td>
-                        <td>1945</td>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nguyễn Văn Thịnh</td>
+                        <td><span class="label label-info">Chờ xử lý</span></td>
+                        <td>3 tiếng trước</td>
+                        <td>368.000 đ</td>
                     </tr>
+
                     <tr>
-                        <td class="cw"><span class="flag-IN"></span></td>
-                        <td>India</td>
-                        <td>1779</td>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nguyễn Văn Thịnh</td>
+                        <td><span class="label label-info">Chờ xử lý</span></td>
+                        <td>3 tiếng trước</td>
+                        <td>368.000 đ</td>
                     </tr>
+
                     <tr>
-                        <td class="cw"><span class="flag-AU"></span></td>
-                        <td>Australia</td>
-                        <td>1486</td>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nguyễn Văn Thịnh</td>
+                        <td><span class="label label-info">Chờ xử lý</span></td>
+                        <td>3 tiếng trước</td>
+                        <td>368.000 đ</td>
                     </tr>
+
                     <tr>
-                        <td class="cw"><span class="flag-TR"></span></td>
-                        <td>Turkey</td>
-                        <td>1024</td>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nguyễn Văn Thịnh</td>
+                        <td><span class="label label-success">Đã xử lý</span></td>
+                        <td>3 tiếng trước</td>
+                        <td>368.000 đ</td>
                     </tr>
+
                     <tr>
-                        <td class="cw"><span class="flag-CN"></span></td>
-                        <td>China</td>
-                        <td>753</td>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nguyễn Văn Thịnh</td>
+                        <td><span class="label label-info">Chờ xử lý</span></td>
+                        <td>3 tiếng trước</td>
+                        <td>368.000 đ</td>
+                    </tr>
+
+                    <tr>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nguyễn Văn Thịnh</td>
+                        <td><span class="label label-info">Chờ xử lý</span></td>
+                        <td>3 tiếng trước</td>
+                        <td>368.000 đ</td>
                     </tr>
                     </tbody>
                 </table>
@@ -132,85 +139,71 @@
         </div>
     </div>
 </div>
-<div class="row row_full">
-    <div class="col-md-12">
-        <div class="heading_a">
-            <span class="heading_text">Tasks assigned to Me</span>
 
-            <div class="pull-right">
-                <a href="#"><i class="el-icon-tasks heading_icon"></i></a>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="heading_a"><span class="heading_text">Sản phẩm bán nhiều nhất</span></div>
+        <div class="row">
+            
+            <div class="col-md-12">
+                <table class="table table-yuk">
+                    <thead>
+                    <tr>
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Lượt mua</th>
+                        <th>Tổng</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nồi nấu đa năng siêu tốc Happy Call </td>
+                        <td>350</td>
+                        <td>48.368.000 đ</td>
+                    </tr>
+
+                    <tr>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nồi nấu đa năng siêu tốc Happy Call </td>
+                        <td>350</td>
+                        <td>48.368.000 đ</td>
+                    </tr>
+
+                    <tr>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nồi nấu đa năng siêu tốc Happy Call </td>
+                        <td>350</td>
+                        <td>48.368.000 đ</td>
+                    </tr>
+
+                    <tr>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nồi nấu đa năng siêu tốc Happy Call </td>
+                        <td>350</td>
+                        <td>48.368.000 đ</td>
+                    </tr>
+
+                    <tr>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nồi nấu đa năng siêu tốc Happy Call </td>
+                        <td>350</td>
+                        <td>48.368.000 đ</td>
+                    </tr>
+
+                    <tr>
+                        <td ><a href="">#5846</a></td>
+                        <td>Nồi nấu đa năng siêu tốc Happy Call </td>
+                        <td>350</td>
+                        <td>48.368.000 đ</td>
+                    </tr>
+
+                    
+                    </tbody>
+                </table>
             </div>
         </div>
-        <ul class="list-group list_group_sep">
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-md-1"><span class="icon_star list_icon"></span></div>
-                    <div class="col-md-2">
-                        <div class="label label-danger">High</div>
-                    </div>
-                    <div class="col-md-2"><a href="#"><strong>YUK-31</strong></a></div>
-                    <div class="col-md-4"><span class="text-muted small">Lorem ipsum dolor sit amet&hellip;</span></div>
-                    <div class="col-md-3">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-danger" style="width: 28%">
-                                <span class="sr-only">28% Complete</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-md-1"><span class="icon_star_alt list_icon"></span></div>
-                    <div class="col-md-2">
-                        <div class="label label-warning">Medium</div>
-                    </div>
-                    <div class="col-md-2"><a href="#"><strong>ARW-21</strong></a></div>
-                    <div class="col-md-4"><span class="text-muted small">Lorem ipsum dolor&hellip;</span></div>
-                    <div class="col-md-3">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-warning" style="width: 62%">
-                                <span class="sr-only">62% Complete</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-md-1"><span class="icon_star_alt list_icon"></span></div>
-                    <div class="col-md-2">
-                        <div class="label label-success">Low</div>
-                    </div>
-                    <div class="col-md-2"><a href="#"><strong>YUK-63</strong></a></div>
-                    <div class="col-md-4"><span class="text-muted small">Lorem ipsum dolor sit&hellip;</span></div>
-                    <div class="col-md-3">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" style="width: 80%">
-                                <span class="sr-only">80% Complete</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="list-group-item">
-                <div class="row">
-                    <div class="col-md-1"><span class="icon_star list_icon"></span></div>
-                    <div class="col-md-2">
-                        <div class="label label-danger">High</div>
-                    </div>
-                    <div class="col-md-2"><a href="#"><strong>DES-31</strong></a></div>
-                    <div class="col-md-4"><span class="text-muted small">Lorem ipsum dolor&hellip;</span></div>
-                    <div class="col-md-3">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-danger" style="width: 12%">
-                                <span class="sr-only">12% Complete</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
     </div>
 </div>
 <div class="row">

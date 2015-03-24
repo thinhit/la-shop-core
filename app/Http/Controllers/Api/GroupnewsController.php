@@ -1,6 +1,9 @@
 <?php namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 use App\Http\Models as Models;
+
 class GroupnewsController extends Controller {
 
 	/*
@@ -44,8 +47,8 @@ class GroupnewsController extends Controller {
 		return json_encode($arr);
 	}
 
-	public function getPost(){
-		var_dump($_POST);
+	public function postPost(Request $request){
+		return $request->input('name');
 		if(isset($_POST['name']) && !empty($_POST['name'])) {
 				$Group_news = new Models\Group_news;
 				$Group_news->name        = Input::get('name');
