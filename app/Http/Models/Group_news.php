@@ -11,6 +11,7 @@ class Group_news extends Model {
 	 * @var string
 	 */
 	protected $table = 'group_news';
+	
 	var $timestamps = false;
 	/**
 	 * The attributes that are mass assignable.

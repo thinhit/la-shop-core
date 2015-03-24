@@ -80,6 +80,7 @@
         <script src="assets/angular/directive.js"></script>
         <script src="assets/angular/state.js"></script>
         <script src="assets/angular/controller.js"></script>
+        <script src="assets/angular/controller/group_news.js"></script>
         <script src='assets/angular/app/controllers/product.list.controller.js'></script>
         
 

@@ -44,7 +44,7 @@ class GroupnewsController extends Controller {
 		return json_encode($arr);
 	}
 
-	public function getCreate(){
+	public function getPost(){
 		if(isset($_POST['name']) && !empty($_POST['name'])) {
 				$Group_news = new Models\Group_news;
 				$Group_news->name        = Input::get('name');
@@ -59,6 +59,39 @@ class GroupnewsController extends Controller {
 		}
 	}
 
+	public function getPush($id) {
+		if(!isset($_GET['id']) && empty($_GET['id'])) {
+			return false;
+		}
+		$id   = $_GET['id'];
+		$name = Input::get('name');
+		$Group_news = new Models\Group_news;
+		$Group_news = Models\Group_news::find($id);
+		$Group_news->name = $name;
+		$rs = $Group_news->save();
+		if($rs == true) {
+					$arr = array('error' => true,'message' => 'Done');
+		} else {
+			$arr = array('error' => false,'message' => 'not Done');
+		}
+		return json_encode($arr);
+	}
 
+	public function getDelete() {
+		if(!isset($_GET['id']) && empty($_GET['id'])) {
+			return false;
+		}
+		$id   = $_GET['id'];
+		$name = Input::get('name');
+		$Group_news = new Models\Group_news;
+		$Group_news = Models\Group_news::find($id);
+		$rs = $Group_news->delete();
+		if($rs == true) {
+					$arr = array('error' => true,'message' => 'Done');
+		} else {
+			$arr = array('error' => false,'message' => 'not Done');
+		}
+		return json_encode($arr);
+	}
 
 }
