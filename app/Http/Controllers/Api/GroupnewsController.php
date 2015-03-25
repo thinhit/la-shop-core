@@ -33,7 +33,7 @@ class GroupnewsController extends Controller {
 	 * @return Response
 	 */
 	public function getIndex()
-	{
+	{	
 		return 1;
 	}
 
@@ -50,12 +50,17 @@ class GroupnewsController extends Controller {
 	public function postPost(Request $request){
 		$name = $request->input('name');
 		if(isset($name) && !empty($name)) {
-				$Group_news = new Models\Group_news;
+				$Group_news              = new Models\Group_news;
 				$Group_news->name        = $name;
 				$Group_news->create_time = date("Y-m-d H:i:s");
 				$rs = $Group_news->save();
+				$LastInsertId = $Group_news->id;
+				$data = array('id' => $LastInsertId,
+								'name' => $name,
+								'create_time' => date("Y-m-d H:i:s")
+				  			);
 				if($rs == true) {
-					$arr = array('error' => true,'message' => 'Done','data' => array('name' => $name,'create_time' => date("Y-m-d H:i:s")));
+					$arr = array('error' => true,'message' => 'Done','data' => $data);
 				} else {
 					$arr = array('error' => false,'message' => 'not Done');
 				}

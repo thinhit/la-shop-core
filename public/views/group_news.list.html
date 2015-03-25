@@ -7,11 +7,8 @@
     </div>
     <div class="col-md-10" ng-controller="group_news">
         <div class="row">
-            <div class="col-md-5">
-                <input type="text" ng-model="name" class="form-control">
-            </div>
             <div class="col-md-3">
-                <button class="btn btn-primary" ng-click="add_item()">Add</button>
+                <button ng-disabled="disable" class="btn btn-primary" ng-click="modalOpen()">Add</button>
             </div>
         </div>
         <div class="row">
@@ -26,24 +23,14 @@
                             <th>ACTION</th>
                         </tr>
                     </thead>
-                    <div id="fadingBarsG"  ng-if="loading">
-                        <div id="fadingBarsG_1" class="fadingBarsG">
+                        <div id="facebookG" ng-if="loading">
+                            <div id="blockG_1" class="facebook_blockG" >
+                            </div>
+                            <div id="blockG_2" class="facebook_blockG">
+                            </div>
+                            <div id="blockG_3" class="facebook_blockG">
+                            </div>
                         </div>
-                        <div id="fadingBarsG_2" class="fadingBarsG">
-                        </div>
-                        <div id="fadingBarsG_3" class="fadingBarsG">
-                        </div>
-                        <div id="fadingBarsG_4" class="fadingBarsG">
-                        </div>
-                        <div id="fadingBarsG_5" class="fadingBarsG">
-                        </div>
-                        <div id="fadingBarsG_6" class="fadingBarsG">
-                        </div>
-                        <div id="fadingBarsG_7" class="fadingBarsG">
-                        </div>
-                        <div id="fadingBarsG_8" class="fadingBarsG">
-                        </div>
-                    </div>
                     <tbody>
                         <tr ng-repeat="gr in group_news">
                             <td>{{$index+1}}</td>
@@ -52,7 +39,7 @@
                             <td>{{gr.update_time}}</td>
                             <td>
                                 <div class="btn-group">
-                                  <button aria-expanded="false" data-toggle="dropdown" class="btn btn-sm btn-warning dropdown-toggle" type="button">
+                                  <button ng-disabled="disable" aria-expanded="false" data-toggle="dropdown" class="btn btn-sm btn-warning dropdown-toggle" type="button">
                                     Hành động <span class="caret"></span>
                                   </button>
                                   <ul role="menu" class="dropdown-menu">
