@@ -109,7 +109,7 @@
                         <li><a ui-sref="login">Log Out</a></li>
                     </ul>
                 </div>
-                <div class="search_section hidden-sm hidden-xs" ng-controller="topSearchCtrl">
+                <div class="search_section hidden-sm hidden-xs"> <!-- ng-controller="topSearchCtrl" -->
                     <input type="text" class="form-control input-sm" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8">
                     <button class="btn btn-link btn-sm" type="button"><span class="icon_search"></span></button>
                 </div>

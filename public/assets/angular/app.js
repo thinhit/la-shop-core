@@ -1,6 +1,21 @@
 "use strict";
 var base_url = 'http://localhost:8000/api/v1/';
-var idsCore = angular.module('idsCore', [ 'ui.router', 'ngAnimate', 'ui.load', 'ngSanitize', 'ngCookies', 'ui.bootstrap', 'ncy-angular-breadcrumb', 'ngRetina', 'angular-growl', 'NgSwitchery', 'textAngular']);
+var idsCore = angular.module('idsCore', 
+    [ 
+        'ui.router', 
+        'ngAnimate', 
+        'ui.load', 
+        'ngSanitize', 
+        'ngResource', 
+        'ngCookies', 
+        'ui.bootstrap', 
+        'ncy-angular-breadcrumb', 
+        'ngRetina', 
+        'angular-growl', 
+        'NgSwitchery', 
+        'textAngular'
+    ]
+);
 
 /* Run Block */
 idsCore.run(
@@ -41,7 +56,7 @@ idsCore.run(
                 return ((window.matchMedia && (window.matchMedia('only screen and (min-resolution: 124dpi), only screen and (min-resolution: 1.3dppx), only screen and (min-resolution: 48.8dpcm)').matches || window.matchMedia('only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (-o-min-device-pixel-ratio: 2.6/2), only screen and (min--moz-device-pixel-ratio: 1.3), only screen and (min-device-pixel-ratio: 1.3)').matches)) || (window.devicePixelRatio && window.devicePixelRatio > 1.3));
             }
 
-            $rootScope.appVer = 'v1.4';
+            $rootScope.appVer = 'v0.1';
 
             // main menu
             $rootScope.sideMenuAct = true;

@@ -86,7 +86,7 @@ idsCore
                     // this url is appended to parent url (/forms/regular_elements)
                     url: '/list',
                     templateUrl: 'views/product.list.html',
-                     resolve: {
+                    resolve: {
                         files: [
                             'uiLoad',
                             function (uiLoad) {
@@ -101,22 +101,44 @@ idsCore
                 })
 
                 // Forms (parent state)
-                .state('auth.group_news', {
+                .state('auth.news', {
                     // With abstract set to true, that means this state can not be explicitly activated.
                     abstract: true,
-                    url: '/group_news',
+                    url: '/news',
                     template: '<div ui-view autoscroll="false" class="mainView-animate"></div>'
                 })
-                // Forms > Regular Elements
-                .state('auth.group_news.list', {
-                    page_title: titlePrefix + ' - Sản phẩm',
+
+                .state('auth.news.group_news', {
+                    page_title: titlePrefix + ' - Nhóm tin tức',
                     data: {
-                        ncyBreadcrumbLabel: 'Danh sách sản phẩm'
+                        ncyBreadcrumbLabel: 'Nhóm tin tức'
                     },
                     // this url is appended to parent url (/forms/regular_elements)
-                    url: '/list',
+                    url: '/group_news',
                     templateUrl: 'views/group_news.list.html',
                     controller:'group_news'
                 })
+
+
+                .state('auth.news.list_news', {
+                    page_title: titlePrefix + ' - Danh sách tin tức',
+                    data: {
+                        ncyBreadcrumbLabel: 'Danh sách tin tức'
+                    },
+                    url: '/list_news',
+                    templateUrl: 'views/auth.news/list_news.html',
+                    resolve: {
+                        files: [
+                            'uiLoad',
+                            function (uiLoad) {
+                                return uiLoad.load([
+                                    'assets/lib/iCheck/icheck.min.js',
+                                ]);
+                            }
+                        ]
+                    },
+                    controller: 'NewsListController'
+                })
+
         }
     ]);

@@ -37,6 +37,7 @@
         <script src="assets/angular/angularjs/angular-animate.min.js"></script>
         <script src="assets/angular/angularjs/angular-cookies.min.js"></script>
         <script src="assets/angular/angularjs/angular-sanitize.min.js"></script>
+        <script src="assets/angular/angularjs/angular-resource.min.js"></script>
     <!-- ui-router -->
         <script src="assets/angular/plugins/ui-router/angular-ui-router.min.js"></script>
     <!-- breadcrumbs -->
@@ -55,35 +56,37 @@
                 </div>
             </div>
         </script>
-    <!-- retina images -->
-        <script src="assets/angular/plugins/retina/angular-retina.min.js"></script>
-    <!-- angular growl -->
+
+        
+
         <link href="assets/angular/plugins/angular-growl/build/angular-growl.min.css" rel="stylesheet" media="screen">
+        <link rel="stylesheet" href="assets/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <script src="assets/angular/plugins/retina/angular-retina.min.js"></script>
         <script src="assets/angular/plugins/angular-growl/build/angular-growl.min.js"></script>
-    <!-- switchery -->
         <script src="assets/lib/switchery/dist/switchery.min.js"></script>
         <script src="assets/angular/plugins/switchery/ng-switchery.js"></script>
-    <!-- fastclick -->
         <script src="assets/js/fastclick.min.js"></script>
-    <!-- match height -->
         <script src="assets/lib/jquery-match-height/jquery.matchHeight-min.js"></script>
-    <!-- scrollbar -->
-        <link rel="stylesheet" href="assets/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
         <script src="assets/lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <!-- textAngular -->
-        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
         <script src="assets/angular/plugins/textAngular/dist/textAngular-sanitize.min.js"></script>
         <script src="assets/angular/plugins/textAngular/dist/textAngular.min.js"></script>
 
-    <!-- yukonApp -->
+        <!-- yukonApp -->
         <script src="assets/angular/app.js"></script>
         <script src="assets/angular/factory.js"></script>
         <script src="assets/angular/service.js"></script>
         <script src="assets/angular/directive.js"></script>
         <script src="assets/angular/state.js"></script>
+        <script src='assets/angular/app/services/restful.service.js'></script>
+
         <script src="assets/angular/controller.js"></script>
         <script src="assets/angular/controller/group_news.js"></script>
         <script src='assets/angular/app/controllers/product.list.controller.js'></script>
+        <script src='assets/angular/app/controllers/auth.news/news.list.controller.js'></script>
+        
         
 
     <!-- google maps api-->

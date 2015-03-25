@@ -18,9 +18,10 @@ Route::get('home', 'HomeController@index');
 
 /*API*/
 
-Route::group(['prefix' => 'api', 'middleware' => 'auth'], function()
+Route::group(['prefix' => 'api/v1', 'middleware' => 'auth'], function()
 {	
-	Route::controller('v1/group_news', 'Api\GroupnewsController');
+	Route::controller('group_news', 'Api\GroupnewsController');
+	Route::controller('news', 'Api\NewsController');
 
 });
 

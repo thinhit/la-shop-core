@@ -126,13 +126,17 @@ idsCore
                 },
                 {
                     id: 1,
-                    title: 'News',
+                    title: 'Tin tức',
                     icon: 'icon_document_alt first_level_icon',
                     submenu_title: 'Forms',
                     submenu: [
                         {
-                            title: 'Group News ',
-                            link: 'auth.group_news.list'
+                            title: 'Danh sách tin tức',
+                            link: 'auth.news.list_news'
+                        },
+                        {
+                            title: 'Nhóm tin tức',
+                            link: 'auth.news.group_news'
                         }
                     ]
                 },
