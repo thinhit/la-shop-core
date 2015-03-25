@@ -7,6 +7,9 @@
     </div>
     <div class="col-md-10" ng-controller="group_news">
         <div class="row">
+            <div class="col-md-5">
+                <input type="text" ng-model="name" class="form-control">
+            </div>
             <div class="col-md-3">
                 <button class="btn btn-primary" ng-click="add_item()">Add</button>
             </div>
@@ -20,18 +23,44 @@
                             <th>NAME</th>
                             <th>CREAT TIME</th>
                             <th>UPDATE TIME</th>
-                            <th>EDIT</th>
-                            <th>DEL</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
+                    <div id="fadingBarsG"  ng-if="loading">
+                        <div id="fadingBarsG_1" class="fadingBarsG">
+                        </div>
+                        <div id="fadingBarsG_2" class="fadingBarsG">
+                        </div>
+                        <div id="fadingBarsG_3" class="fadingBarsG">
+                        </div>
+                        <div id="fadingBarsG_4" class="fadingBarsG">
+                        </div>
+                        <div id="fadingBarsG_5" class="fadingBarsG">
+                        </div>
+                        <div id="fadingBarsG_6" class="fadingBarsG">
+                        </div>
+                        <div id="fadingBarsG_7" class="fadingBarsG">
+                        </div>
+                        <div id="fadingBarsG_8" class="fadingBarsG">
+                        </div>
+                    </div>
                     <tbody>
                         <tr ng-repeat="gr in group_news">
                             <td>{{$index+1}}</td>
                             <td>{{gr.name}}</td>
                             <td>{{gr.create_time}}</td>
                             <td>{{gr.update_time}}</td>
-                            <td><span class="glyphicon glyphicon-edit"></span></td>
-                            <td><span class="glyphicon glyphicon-remove" ng-click="delete($index,gr.id)"></span></td>
+                            <td>
+                                <div class="btn-group">
+                                  <button aria-expanded="false" data-toggle="dropdown" class="btn btn-sm btn-warning dropdown-toggle" type="button">
+                                    Hành động <span class="caret"></span>
+                                  </button>
+                                  <ul role="menu" class="dropdown-menu">
+                                    <li><a href="#">Cập nhật</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="delete($index,gr.id)">Xóa</a></li>
+                                  </ul>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                     <tfoot class="hide-if-no-paging">

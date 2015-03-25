@@ -91,6 +91,7 @@
 
     <!-- main stylesheet -->
 		<link href="assets/css/main.min.css" rel="stylesheet" media="screen" id="mainCss">
+        <link href="assets/css/animation.css" rel="stylesheet" media="screen" id="mainCss">
 
     </head>
     <body class="{{siteBg}}" ng-class="{
@@ -104,9 +105,9 @@
         'hide_breadcrumbs': hideBreadcrumbs && !$state.includes('error.404'),
         'top_menu_active': topMenuAct && !$state.includes('error.404')
     }">
-
+        <div growl></div>
         <div ui-view autoscroll="false" class="mainView-animate"></div>
-
         <div page-loader></div>
+
     </body>
 </html>
