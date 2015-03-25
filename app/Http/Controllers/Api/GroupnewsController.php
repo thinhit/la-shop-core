@@ -48,14 +48,14 @@ class GroupnewsController extends Controller {
 	}
 
 	public function postPost(Request $request){
-		return $request->input('name');
-		if(isset($_POST['name']) && !empty($_POST['name'])) {
+		$name = $request->input('name');
+		if(isset($name) && !empty($name)) {
 				$Group_news = new Models\Group_news;
-				$Group_news->name        = Input::get('name');
+				$Group_news->name        = $name;
 				$Group_news->create_time = date("Y-m-d H:i:s");
 				$rs = $Group_news->save();
 				if($rs == true) {
-					$arr = array('error' => true,'message' => 'Done');
+					$arr = array('error' => true,'message' => 'Done','data' => array('name' => $name,'create_time' => date("Y-m-d H:i:s")));
 				} else {
 					$arr = array('error' => false,'message' => 'not Done');
 				}
@@ -81,11 +81,11 @@ class GroupnewsController extends Controller {
 		return json_encode($arr);
 	}
 
-	public function getDelete() {
-		if(!isset($_GET['id']) && empty($_GET['id'])) {
+	public function postDelete(Request $request) {
+		$id   = $request->input('id');
+		if(!isset($id) && empty($id)) {
 			return false;
 		}
-		$id   = $_GET['id'];
 		$Group_news = new Models\Group_news;
 		$Group_news = Models\Group_news::find($id);
 		$rs = $Group_news->delete();

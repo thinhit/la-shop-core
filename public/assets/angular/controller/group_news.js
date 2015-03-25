@@ -2,57 +2,43 @@
 idsCore
     .controller('group_news',function($scope,$timeout, $http) {
         $scope.group_news = [];
-        $.ajax({
-            url:base_url+'group_news/viewall',
-            dataType:'json',
-            success:function(e) {
-                $timeout(function() {
-                    $scope.group_news = e.data;
-                });
-            }
-        });
-        $scope.delete = function(index,id) {
-            $.ajax({
-                url:base_url+'group_news/delete',
-                data:'id='+id,
-                dataType:'json',
-                success:function(suc) {
-                    $timeout(function() {
-                        if(suc.message == 'Done') {
-                            $scope.group_news.splice(index,id);
-                        }
-                    });
-                }
+        $http({
+            url     : base_url+'group_news/viewall',
+            dataType: 'json'
+            }).success(function (e){
+                $scope.group_news = e.data;
+            }).error(function (err){
+                console.log(err);
             });
+
+        $scope.delete = function(index,id) {
+            $http({
+                method  : 'POST',
+                url     : base_url+'group_news/delete',
+                data    : {id:id},
+                dataType: 'json'
+                }).success(function (result){
+                    if(result.message == 'Done') {
+                        $scope.group_news.splice(index,id);
+                    }
+                }).error(function (err){
+                    console.log(err);
+                });
         };
 
         $scope.add_item = function() {
             $http({
                 method  : 'POST',
                 url     : base_url+'group_news/post',
-                data    : {name:'Dao cho'},
+                data    : {name:'test'},
                 dataType: 'json'
-              }).success(function (result){
-                    console.log(result);
+                }).success(function (result){
+                    if(result.message == 'Done') {
+                        $scope.group_news.push(result.data);
+                    }
                 }).error(function (err){
                     console.log(err);
                 });
-
-            
-            /*$.ajax({
-                type:'POST',
-                url:base_url+'group_news/post',
-                data:{data:'name=tran cong dao'},
-                dataType:'json',
-
-                async: true,
-                success:function(s) {
-                    console.log(s);
-                },
-                error:function(err) {
-                    console.log(err);
-                }
-            });*/
         };
 
     }); 
