@@ -13,7 +13,8 @@ var idsCore = angular.module('idsCore',
         'ngRetina', 
         'angular-growl', 
         'NgSwitchery', 
-        'textAngular'
+        'textAngular',
+        'xeditable'
     ]
 );
 
