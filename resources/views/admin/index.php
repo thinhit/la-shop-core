@@ -81,8 +81,12 @@
         <script src="assets/angular/directive.js"></script>
         <script src="assets/angular/state.js"></script>
         <script src='assets/angular/app/services/restful.service.js'></script>
+        
+        
         <!-- edit xeditable -->
         <script src="assets/js/xeditable.js"></script>
+        <!-- ui-bootstrap-tpls -->
+        
 
         <script src="assets/angular/controller.js"></script>
         <script src='assets/angular/app/controllers/product.list.controller.js'></script>

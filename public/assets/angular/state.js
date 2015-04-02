@@ -115,7 +115,7 @@ idsCore
                     },
                     // this url is appended to parent url (/forms/regular_elements)
                     url: '/group_news',
-                    templateUrl: 'views/group_news.list.html',
+                    templateUrl: 'views/admin/group_news/list.html',
                     controller:'group_news'
                 })
 

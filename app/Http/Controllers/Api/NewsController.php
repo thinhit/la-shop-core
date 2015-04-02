@@ -19,6 +19,7 @@ class NewsController extends Controller {
 	 */
 	public function getIndex(Request $request)
 	{
+		
 		$Model 		= new Models\News();
 		$Total 		= $Model->getAll()->count();
 		$datas 		= $this->paging($Model->getAll(), $request);

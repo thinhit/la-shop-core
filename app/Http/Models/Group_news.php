@@ -18,5 +18,8 @@ class Group_news extends Model {
 	 *
 	 * @var array
 	 */
-
+	public function getCol(){
+		$users = DB::table('group_news')->select('name')->get();
+		return $users;
+	}
 }

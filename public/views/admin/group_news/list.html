@@ -1,3 +1,7 @@
+<style type="text/css">
+    .pagination{float:right;}
+</style>
+<script src="assets/js/ui-bootstrap-tpls.js"></script>
 <div class="row">
     <div class="col-md-2">
         <div class="list-group">
@@ -8,12 +12,12 @@
     <div class="col-md-10">
         <div class="row">
             <div class="col-md-3">
-                <button ng-disabled="disable" class="btn btn-primary" ng-click="modalOpen()">Add</button>
+                <button ng-disabled="disable" class="btn btn-primary" ng-click="modalOpen_add()">Add</button>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-yuk2 toggle-arrow-tiny" id="footable_demo" data-filter="#textFilter" data-page-size="5">
+                <table style="margin-bottom:0px" class="table table-yuk2 toggle-arrow-tiny" id="footable_demo" data-filter="#textFilter" data-page-size="5">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -23,16 +27,8 @@
                             <th>ACTION</th>
                         </tr>
                     </thead>
-                        <div id="facebookG" ng-if="loading">
-                            <div id="blockG_1" class="facebook_blockG" >
-                            </div>
-                            <div id="blockG_2" class="facebook_blockG">
-                            </div>
-                            <div id="blockG_3" class="facebook_blockG">
-                            </div>
-                        </div>
                     <tbody>
-                        <tr ng-repeat="gr in group_news">
+                        <tr ng-repeat="gr in group_new">
                             <td>{{$index+1}}</td>
                             <td>{{gr.name}}</td>
                             <td>{{gr.create_time}}</td>
@@ -43,7 +39,7 @@
                                     Hành động <span class="caret"></span>
                                   </button>
                                   <ul role="menu" class="dropdown-menu">
-                                    <li><a href="#">Cập nhật</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="modalOpen_update(gr)">Cập nhật</a></li>
                                     <li><a href="javascript:void(0)" ng-click="delete($index,gr.id)">Xóa</a></li>
                                   </ul>
                                 </div>
@@ -58,6 +54,15 @@
                         </tr>
                     </tfoot>
                 </table>
+                <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+                <div id="facebookG" ng-if="loading">
+                    <div id="blockG_1" class="facebook_blockG" >
+                    </div>
+                    <div id="blockG_2" class="facebook_blockG">
+                    </div>
+                    <div id="   blockG_3" class="facebook_blockG">
+                </div>
+            </div>
             </div>
         </div>
     </div>

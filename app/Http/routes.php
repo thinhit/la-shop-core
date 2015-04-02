@@ -14,6 +14,12 @@
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
+Route::get('home2',function() {
+	$users = DB::table('group_news')->select('name')->get();
+	foreach ($users as $key => $value) {
+		echo $value->name.'</br>';
+	}
+});
 
 
 /*API*/

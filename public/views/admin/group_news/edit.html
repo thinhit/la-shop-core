@@ -1,0 +1,24 @@
+<div class="modal-content">
+	<div class="modal-header ng-scope">
+	    <button ng-click="cancel()" class="close" type="button">
+	        <span aria-hidden="true">×</span>
+	        <span class="sr-only">Close</span>
+	    </button>
+	    <h4 class="modal-title ng-binding">Edit Group News</h4>
+	</div>
+	<div class="modal-body ng-binding ng-scope">
+	    <input type="text" ng-model="row.name" class="form-control" id="name_focus" ng-keyup="keyPress(event=$event)">
+	</div>
+	<div class="modal-footer ng-scope" style="text-align:right">
+	    <button ng-click="ok()" class="btn btn-primary btn-sm" type="button">Save changes</button>
+	    <button ng-click="cancel()" class="btn btn-default btn-sm" type="button">Close</button>
+	</div>
+	<div id="facebookG" ng-if="loading">
+	    <div id="blockG_1" class="facebook_blockG" >
+	    </div>
+	    <div id="blockG_2" class="facebook_blockG">
+	    </div>
+	    <div id="blockG_3" class="facebook_blockG">
+	    </div>
+	</div>
+</div>

@@ -1,4 +1,6 @@
 <?php namespace App\Http\Controllers;
+use DB;
+use App\Quotation;
 
 class HomeController extends Controller {
 
@@ -29,8 +31,9 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function index()
-	{
-		return view('admin/home');
+	{	
+		$users = DB::table('group_news')->select('name')->get();
+		var_dump($users);
 	}
 
 }
