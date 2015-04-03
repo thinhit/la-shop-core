@@ -1,29 +1,22 @@
 /* Controllers */
 idsCore
     .controller('group_news',['$scope','$http','growl','$modal',function($scope,$http,growl,$modal) {
-        // $scope.group_news   = [];
         $scope.focusElement = 'name_focus';
         $scope.user = {
             name: 'awesome user'
-          }; 
+          };
+        $scope.currentPage  = 1;
+        $scope.itemsPerPage = 10; 
         $scope.list = function() {
             $scope.loading = true;
             $http({
-                url     : base_url+'group_news',
+                url     : base_url+'group_news?limit='+$scope.itemsPerPage+'&page='+$scope.currentPage,
                 dataType: 'json'
                 }).success(function (e){
-                    $scope.loading = false;
-                    $scope.group_news = e.data;
+                    $scope.loading    = false;
+                    $scope.group_new  = e.data;
                     $scope.totalItems = e.total;
-                    $scope.itemsPerPage = 10;
-                    $scope.currentPage = 1;
-                    $scope.maxSize = 5;
-                    $scope.$watch('currentPage + itemsPerPage', function() {
-                        var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
-                        var end = begin + $scope.itemsPerPage;
-
-                        $scope.group_new = $scope.group_news.slice(begin, end);
-                    });
+                    $scope.maxSize    = 5;
                 }).error(function (err){
                     console.log(err);
                 });
@@ -43,6 +36,7 @@ idsCore
                         $scope.group_new.splice(index,1);
                         $scope.disable = false;
                         $scope.loading = false;
+                        $scope.list();
                     }
                 }).error(function (err){
                     growl.warning("Error!");
@@ -65,12 +59,16 @@ idsCore
                             dataType: 'json'
                             }).success(function (result){
                                 if(result.message == 'Done') {
+                                    var config = {};
                                     $modalInstance.close(result.data);
-                                    growl.success("This add a success !");
+                                    growl.success("This add a success !",{disableCountDown: true});
                                     $scope.disable = false;
                                     $scope.loading = false;
                                 } else if(result.message == 'exits_data') {
                                     growl.warning("Name already exists!");
+                                    $scope.loading = false;
+                                } else if(result.message == 'null') {
+                                    growl.warning("Name not null!");
                                     $scope.loading = false;
                                 }
                             }).error(function (err){
@@ -93,9 +91,9 @@ idsCore
 
                 }
             });
-
             modalInstance.result.then(function (newItem) {
-              $scope.group_new.push(newItem);
+              $scope.group_new.unshift(newItem);
+              $scope.totalItems++;
             }, function () {
               //$log.info('Modal dismissed at: ' + new Date());
             });
@@ -130,6 +128,12 @@ idsCore
                                     $modalInstance.close(result.data);
                                     growl.success("This add a success !");
                                     $scope.disable = false;
+                                    $scope.loading = false;
+                                } else if(result.message == 'exits_data') {
+                                    growl.warning("Name already exists!");
+                                    $scope.loading = false;
+                                } else if(result.message == 'null') {
+                                    growl.warning("Name not null!");
                                     $scope.loading = false;
                                 }
                             }).error(function (err){

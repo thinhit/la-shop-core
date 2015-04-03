@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Response;
 use App\Http\Models as Models;
 use DB;
+// use Carbon\Carbon;
+
 class GroupnewsController extends Controller {
 
 	/*
@@ -32,16 +34,26 @@ class GroupnewsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getIndex()
+	public function getIndex(Request $request)
 	{	
-		$data = Models\Group_news::all();
-		$count = Models\Group_news::count();
-		if(empty($data)) {
-			$arr = ['error' => true,'message' => "Error",'data' => $data];
-		} else {
-			$arr = ['error' => false,'message' => "Done",'data' => $data,'total' => $count];
+		$Model = new Models\Group_news();
+		$Total = $Model->get()->count();
+		$Model = $Model->orderBy('id','DESC');
+		$datas = $this->paging($Model, $request);
+
+		$_objReturn = array(
+			"error" 	=> false,
+			"data"		=> array(),
+			"message"	=> "",
+			"total"		=> $Total
+		);
+
+		if($datas){
+			$_objReturn['data'] = $datas;
 		}
-		return Response::json($arr);
+		return Response::json($_objReturn);
+
+
 	}
 
 	public function postPost(Request $request){
@@ -51,15 +63,13 @@ class GroupnewsController extends Controller {
 		if(isset($name) && !empty($name)) {
 			if(in_array($name,$col_data)) {
 				$arr['message'] = 'exits_data';
-				$arr['error']   = true;
 			} else {
 				$Group_news              = new Models\Group_news;
 				$Group_news->name        = $name;
 				$Group_news->create_time = date("Y-m-d H:i:s");
 				$rs = $Group_news->save();
 				$LastInsertId = $Group_news->id;
-				$count = Models\Group_news::count();
-				$data = ['id' => $LastInsertId,'name' => $name,'create_time' => date("Y-m-d H:i:s"),'total' => $count];
+				$data = ['id' => $LastInsertId,'name' => $name,'create_time' => date("Y-m-d H:i:s")];
 				if($rs == true) {
 					$arr['data']    = $data;
 					$arr['message'] = 'Done';
@@ -68,22 +78,37 @@ class GroupnewsController extends Controller {
 					$arr['message'] = 'Not Done';
 				}
 			}
-			return Response::json($arr);
+		} else {
+			$arr['error'] = true;
+			$arr['message'] = 'null';
 		}
+		return Response::json($arr);
 	}
 	
 	public function postPush(Request $request) {
 		$id                      = $request->input('id');
 		$name                    = $request->input('name');
-		$Group_news              = Models\Group_news::find($id);
-		$Group_news->name        = $name;
-		$Group_news->update_time = date("Y-m-d H:i:s");
-		$rs = $Group_news->save();
-		$data = ['id'=>$id,'name'=>$name,'update_time'=>date("Y-m-d H:i:s")];
-		if($rs == true) {
-			$arr = array('error' => true,'message' => 'Done','data' => $data);
+		$col_data = DB::table('group_news')->lists('name');
+		if(isset($name) && !empty($name)) {
+			if(in_array($name,$col_data)) {
+				$arr['message'] = 'exits_data';
+			} else {
+				$Group_news              = Models\Group_news::find($id);
+				$Group_news->name        = $name;
+				$Group_news->update_time = date("Y-m-d H:i:s");
+				$rs = $Group_news->save();
+				$data = ['id' => $id,'name' => $name,'update_time' => date("Y-m-d H:i:s")];
+				$arr = ['error' => false,'message' => '','data' => ''];
+				if($rs == true) {
+					$arr['data']    = $data;
+					$arr['message'] = 'Done';
+				} else {
+					$arr['error'] = true;
+					$arr['message'] = 'not done ';
+				}
+			}
 		} else {
-			$arr = array('error' => false,'message' => 'not Done');
+			$arr['message'] = 'null';
 		}
 		return json_encode($arr);
 	}

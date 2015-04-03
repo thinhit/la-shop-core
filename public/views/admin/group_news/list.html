@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="gr in group_new">
+                        <tr ng-repeat="gr in group_new | limitTo:itemsPerPage">
                             <td>{{$index+1}}</td>
                             <td>{{gr.name}}</td>
                             <td>{{gr.create_time}}</td>
@@ -54,7 +54,8 @@
                         </tr>
                     </tfoot>
                 </table>
-                <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+                <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" rotate="false" num-pages="numPages" ng-click="list()"></pagination>
+
                 <div id="facebookG" ng-if="loading">
                     <div id="blockG_1" class="facebook_blockG" >
                     </div>
