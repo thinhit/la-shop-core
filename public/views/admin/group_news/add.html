@@ -6,13 +6,17 @@
 	    </button>
 	    <h4 class="modal-title ng-binding">Add Group News</h4>
 	</div>
-	<div class="modal-body ng-binding ng-scope">
-	    <input type="text" ng-model="name" class="form-control" id="name_focus" ng-keyup="keyPress(event=$event)" ng-init="$element.focus()">
-	</div>
-	<div class="modal-footer ng-scope" style="text-align:right">
-	    <button ng-click="ok()" class="btn btn-primary btn-sm" type="button">Save changes</button>
-	    <button ng-click="cancel()" class="btn btn-default btn-sm" type="button">Close</button>
-	</div>
+	<form name="myForm">
+		<div class="modal-body ng-binding ng-scope">
+			<label for="">Name :</label>
+		    <input type="text" ng-model="name" name="name" class="form-control" id="name_focus" ng-keyup="keyPress(event=$event)" required>
+		</div>
+		<div class="modal-footer ng-scope" style="text-align:right">
+		    <input ng-click="ok()" class="btn btn-primary btn-sm" type="button" ng-disabled="myForm.name.$invalid" value="Save changes">
+		    <button ng-click="cancel()" class="btn btn-default btn-sm" type="button">Close</button>
+		</div>
+	</form>
+
 	<div id="facebookG" ng-if="loading">
 	    <div id="blockG_1" class="facebook_blockG" >
 	    </div>

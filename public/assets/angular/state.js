@@ -125,8 +125,8 @@ idsCore
                     data: {
                         ncyBreadcrumbLabel: 'Danh sách tin tức'
                     },
-                    url: '/list_news',
-                    templateUrl: 'views/auth.news/list_news.html',
+                    url: '/news',
+                    templateUrl: 'views/admin/news/list.html',
                     resolve: {
                         files: [
                             'uiLoad',

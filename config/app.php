@@ -40,7 +40,8 @@ return [
 	*/
 	
 	// 'timezone' => 'UTC',
-	'timezone' => 'America/Los_Angeles',
+	// 'timezone' => 'America/Los_Angeles',
+	'timezone' => 'Asia/Ho_Chi_Minh',
 	/*
 	|--------------------------------------------------------------------------
 	| Application Locale Configuration

@@ -104,17 +104,7 @@ idsCore
                 templateUrl: 'views/admin/group_news/edit.html',
                 size: size,
                 controller: function ($scope, $modalInstance, growl, $http) {
-                    //list
-                    $http({
-                        method:'POST',
-                        url  : base_url+'group_news/rows',
-                        data : {id:gr.id},
-                        dataType: 'json'
-                        }).success(function (e){
-                            $scope.row = e.data;
-                        }).error(function (err){
-                            console.log(err);
-                        });
+                    $scope.row = gr;
                     $scope.edit_item = function() {
                         $scope.loading = true;
                         $scope.disable = true;
@@ -126,7 +116,7 @@ idsCore
                             }).success(function (result){
                                 if(result.message == 'Done') {
                                     $modalInstance.close(result.data);
-                                    growl.success("This add a success !");
+                                    growl.success("This edit a success !");
                                     $scope.disable = false;
                                     $scope.loading = false;
                                 } else if(result.message == 'exits_data') {

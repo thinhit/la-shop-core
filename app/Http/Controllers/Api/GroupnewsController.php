@@ -67,7 +67,7 @@ class GroupnewsController extends Controller {
 				$Group_news              = new Models\Group_news;
 				$Group_news->name        = $name;
 				$Group_news->create_time = date("Y-m-d H:i:s");
-				$rs = $Group_news->save();
+				$rs           = $Group_news->save();
 				$LastInsertId = $Group_news->id;
 				$data = ['id' => $LastInsertId,'name' => $name,'create_time' => date("Y-m-d H:i:s")];
 				if($rs == true) {
@@ -79,7 +79,7 @@ class GroupnewsController extends Controller {
 				}
 			}
 		} else {
-			$arr['error'] = true;
+			$arr['error']   = true;
 			$arr['message'] = 'null';
 		}
 		return Response::json($arr);
@@ -103,7 +103,7 @@ class GroupnewsController extends Controller {
 					$arr['data']    = $data;
 					$arr['message'] = 'Done';
 				} else {
-					$arr['error'] = true;
+					$arr['error']   = true;
 					$arr['message'] = 'not done ';
 				}
 			}
@@ -111,18 +111,6 @@ class GroupnewsController extends Controller {
 			$arr['message'] = 'null';
 		}
 		return json_encode($arr);
-	}
-
-	public function postRows(Request $request) {
-		$id = $request->input('id');
-		if(!isset($id) && !empty($id)) {
-			return false;
-		} else {
-			$rows = Models\Group_news::find($id);
-			$data = ['message' => 'Done','error' => 'false','data' => $rows];
-			return Response::json($data);	
-		}
-		
 	}
 
 	public function postDelete(Request $request) {

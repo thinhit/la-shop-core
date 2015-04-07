@@ -1,9 +1,10 @@
 <?php namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Response;
 use App\Http\Models as Models;
-
+use DB;
 class NewsController extends Controller {
 
 
@@ -37,66 +38,17 @@ class NewsController extends Controller {
 		return Response::json($_objReturn);
 	}
 
-
-
-	public function getViewall() {
-		$data = Models\Group_news::all();
-		if(empty($data)) {
-			$arr = array('error' => false,'message'=>"Error",'data'=>$data);
-		} else {
-			$arr = array('error' => true,'message'=>"Done",'data'=>$data);
-		}
-		return json_encode($arr);
-	}
-
-	public function postPost(Request $request){
-		$name = $request->input('name');
-		if(isset($name) && !empty($name)) {
-				$Group_news = new Models\Group_news;
-				$Group_news->name        = $name;
-				$Group_news->create_time = date("Y-m-d H:i:s");
-				$rs = $Group_news->save();
-				if($rs == true) {
-					$arr = array('error' => true,'message' => 'Done','data' => array('name' => $name,'create_time' => date("Y-m-d H:i:s")));
-				} else {
-					$arr = array('error' => false,'message' => 'not Done');
-				}
-				return json_encode($arr);
-		}
-	}
-
-	public function getPush($id) {
-		if(!isset($_GET['id']) && empty($_GET['id'])) {
-			return false;
-		}
-		$id   = $_GET['id'];
-		$name = Input::get('name');
-		$Group_news = new Models\Group_news;
-		$Group_news = Models\Group_news::find($id);
-		$Group_news->name = $name;
-		$rs = $Group_news->save();
-		if($rs == true) {
-					$arr = array('error' => true,'message' => 'Done');
-		} else {
-			$arr = array('error' => false,'message' => 'not Done');
-		}
-		return json_encode($arr);
-	}
-
-	public function postDelete(Request $request) {
-		$id   = $request->input('id');
-		if(!isset($id) && empty($id)) {
-			return false;
-		}
-		$Group_news = new Models\Group_news;
-		$Group_news = Models\Group_news::find($id);
-		$rs = $Group_news->delete();
-		if($rs == true) {
-					$arr = array('error' => true,'message' => 'Done');
-		} else {
-			$arr = array('error' => false,'message' => 'not Done');
-		}
-		return json_encode($arr);
+	public function getGroupnews(Request $Request) {
+		// $redis = Redis::connection();
+		// $redis->set('name','tran cong dao');
+		// $a = $redis->get('name');
+		// if(!empty($a)) {
+		// 	echo $a;
+		// }
+		// var_dump($a);die;
+		// var_dump($uri);die;
+		$Model = DB::table('group_news')->select('name')->get();
+		return Response::json($Model);
 	}
 
 }
