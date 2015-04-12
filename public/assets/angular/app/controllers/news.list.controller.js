@@ -1,7 +1,7 @@
 "use strict";
 angular.module('idsCore')
     .controller('NewsListController', [
-        '$scope','$http', '$restful','$modal', function ($scope, $http, $restful,$modal) {
+        '$scope','$http', '$restful','$modal', 'FileUploader', 'CSRF_TOKEN',  function ($scope, $http, $restful, $modal, FileUploader, CSRF_TOKEN) {
 
         	$scope.list_data = [];
 
@@ -13,9 +13,32 @@ angular.module('idsCore')
         		})
         	}
         	$scope.loadPage();
-            $scope.upLoadFile = function(ele) {
-                alert(112312);
-            };
+
+
+
+            var uploader = $scope.uploader = new FileUploader({
+                url: base_url + 'upload',
+                alias               : 'newsFile',
+                formData: [
+                    {
+                        key: 'request'
+                    }
+                ],
+                headers:{'X-CSRF-TOKEN' :CSRF_TOKEN }
+            });
+
+            uploader.filters.push({
+                name: 'customFilter',
+                fn: function(item, options) {
+                    return this.queue.length < 10;
+                }
+            });
+
+
+
+
+            
+
             var modalInstance;
             $scope.modalOpen_add = function (size) {
                 modalInstance = $modal.open({

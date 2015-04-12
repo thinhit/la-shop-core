@@ -14,9 +14,29 @@ var idsCore = angular.module('idsCore',
         'angular-growl', 
         'NgSwitchery', 
         'textAngular',
-        'xeditable'
+        'xeditable',
+        'angularFileUpload'
     ]
 );
+
+var csrftoken =  (function() {
+    // not need Jquery for doing that
+    var metas = window.document.getElementsByTagName('meta');
+
+    // finding one has csrf token 
+    for(var i=0 ; i < metas.length ; i++) {
+
+        if ( metas[i].name === "csrf-token") {
+
+            return  metas[i].content;       
+        }
+    }  
+
+})();
+
+// adding constant into our app
+
+idsCore.constant('CSRF_TOKEN', csrftoken); 
 
 /* Run Block */
 idsCore.run(
@@ -90,7 +110,16 @@ idsCore
             growlProvider.globalTimeToLive(5000);
             $httpProvider.interceptors.push(growlProvider.serverMessagesInterceptor);
         }
-    ]);
+    ])
+    .config(['$httpProvider', 'CSRF_TOKEN',
+        function($httpProvider, CSRF_TOKEN) {
+            /**
+             * adds CSRF token to header
+             */
+            $httpProvider.defaults.headers.common['X-CSRF-TOKEN'] = CSRF_TOKEN;
+        }
+     ]);
+
 
 /* filters */
 idsCore

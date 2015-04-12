@@ -42,6 +42,8 @@
         <script src="assets/angular/plugins/ui-router/angular-ui-router.min.js"></script>
     <!-- breadcrumbs -->
         <script src="assets/angular/plugins/breadcrumbs/angular-breadcrumb.min.js"></script>
+
+        <script src="assets/angular/plugins/angular-file-upload/angular-file-upload.js"></script>
     <!-- ui-bootstrap -->
         <script src="assets/angular/plugins/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
         <script id="template/accordion/accordion-group.html" type="text/ng-template">
