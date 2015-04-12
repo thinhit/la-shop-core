@@ -3,16 +3,16 @@
 </style>
 <script src="assets/js/ui-bootstrap-tpls.js"></script>
 <div class="row">
-    <div class="col-md-2">
-        <div class="list-group">
-            <a ui-sref="auth.plugins.tables.footable" ng-class="{ active: $state.includes('auth.plugins.tables.footable') }" class="list-group-item">Footable</a>
-            <a ui-sref="auth.plugins.tables.datatable" ng-class="{ active: $state.includes('auth.plugins.tables.datatable') }" class="list-group-item">Datatable</a>
-        </div>
-    </div>
-    <div class="col-md-10">
+  <!--   <div class="col-md-2">
+      <div class="list-group">
+          <a ui-sref="auth.plugins.tables.footable" ng-class="{ active: $state.includes('auth.plugins.tables.footable') }" class="list-group-item">Footable</a>
+          <a ui-sref="auth.plugins.tables.datatable" ng-class="{ active: $state.includes('auth.plugins.tables.datatable') }" class="list-group-item">Datatable</a>
+      </div>
+  </div> -->
+    <div class="col-md-12">
         <div class="row">
             <div class="col-md-3">
-                <button ng-disabled="disable" class="btn btn-primary" ng-click="modalOpen_add()">Add</button>
+                <button ng-disabled="disable" class="btn btn-primary" ng-click="modalOpen_add()">Thêm mới</button>
             </div>
         </div>
         <div class="row">
@@ -20,19 +20,19 @@
                 <table style="margin-bottom:0px" class="table table-yuk2 toggle-arrow-tiny" id="footable_demo" data-filter="#textFilter" data-page-size="5">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>NAME</th>
-                            <th>CREAT TIME</th>
-                            <th>UPDATE TIME</th>
-                            <th>ACTION</th>
+                            <th>#</th>
+                            <th>Tên chuyên mục</th>
+                             <th>Ngày tạo</th>
+                            <!--<th>UPDATE TIME</th> -->
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="gr in group_new | limitTo:itemsPerPage">
                             <td>{{$index+1}}</td>
                             <td>{{gr.name}}</td>
-                            <td>{{gr.create_time}}</td>
-                            <td>{{gr.update_time}}</td>
+                             <td>{{gr.create_time}}</td>
+                            <!--<td>{{gr.update_time}}</td> -->
                             <td>
                                 <div class="btn-group">
                                   <button ng-disabled="disable" aria-expanded="false" data-toggle="dropdown" class="btn btn-sm btn-warning dropdown-toggle" type="button">

@@ -2,18 +2,18 @@
 	<div class="modal-header ng-scope">
 	    <button ng-click="cancel()" class="close" type="button">
 	        <span aria-hidden="true">×</span>
-	        <span class="sr-only">Close</span>
+	        <span class="sr-only">Đóng</span>
 	    </button>
-	    <h4 class="modal-title ng-binding">Add Group News</h4>
+	    <h4 class="modal-title ng-binding">Thêm chuyên mục tin tức</h4>
 	</div>
 	<form name="myForm">
 		<div class="modal-body ng-binding ng-scope">
-			<label for="">Name :</label>
+			<label for="">Tên chuyên mục :</label>
 		    <input type="text" ng-model="name" name="name" class="form-control" id="name_focus" ng-keyup="keyPress(event=$event)" required>
 		</div>
 		<div class="modal-footer ng-scope" style="text-align:right">
-		    <input ng-click="ok()" class="btn btn-primary btn-sm" type="button" ng-disabled="myForm.name.$invalid" value="Save changes">
-		    <button ng-click="cancel()" class="btn btn-default btn-sm" type="button">Close</button>
+		    <input ng-click="ok()" class="btn btn-primary btn-sm" type="button" ng-disabled="myForm.name.$invalid" value="Lưu lại">
+		    <button ng-click="cancel()" class="btn btn-default btn-sm" type="button">Đóng</button>
 		</div>
 	</form>
 

@@ -2,17 +2,18 @@
 	<div class="modal-header ng-scope">
 	    <button ng-click="cancel()" class="close" type="button">
 	        <span aria-hidden="true">×</span>
-	        <span class="sr-only">Close</span>
+	        <span class="sr-only">Đóng</span>
 	    </button>
-	    <h4 class="modal-title ng-binding">Edit Group News</h4>
+	    <h4 class="modal-title ng-binding">Sửa chuyên mục tin</h4>
 	</div>
 	<form name="myForm">
 		<div class="modal-body ng-binding ng-scope">
+			<label for="">Tên chuyên mục :</label>
 		    <input type="text" ng-model="row.name" class="form-control" name='name' id="name_focus" ng-keyup="keyPress(event=$event)" required>
 		</div>
 		<div class="modal-footer ng-scope" style="text-align:right">
-		    <button ng-click="ok()" class="btn btn-primary btn-sm" type="button" ng-disabled="myForm.name.$invalid" >Save changes</button>
-		    <button ng-click="cancel()" class="btn btn-default btn-sm" type="button">Close</button>
+		    <button ng-click="ok()" class="btn btn-primary btn-sm" type="button" ng-disabled="myForm.name.$invalid" >Lưu lại</button>
+		    <button ng-click="cancel()" class="btn btn-default btn-sm" type="button">Đóng</button>
 		</div>
 	</form>
 	<div id="facebookG" ng-if="loading">

@@ -32,8 +32,9 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{	
-		$users = DB::table('group_news')->select('name')->get();
-		var_dump($users);
+		return view('home');
+		/*$users = DB::table('group_news')->select('name')->get();
+		var_dump($users);*/
 	}
 
 }
