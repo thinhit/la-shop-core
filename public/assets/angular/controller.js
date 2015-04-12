@@ -121,6 +121,10 @@ idsCore
                         {
                             title: 'Danh sách sản phẩm',
                             link: 'auth.product.list'
+                        },
+                        {
+                            title: 'Thể loại sản phẩm',
+                            link :'auth.product.category'
                         }
                     ]
                 },

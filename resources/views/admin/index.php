@@ -88,9 +88,9 @@
     
         <script src="assets/angular/controller.js"></script>
         <script src='assets/angular/app/controllers/product.list.controller.js'></script>
-        <script src='assets/angular/app/controllers/auth.news/news.list.controller.js'></script>
-        <script src='assets/angular/app/controllers/auth.news/group_news.list.controller.js'></script>
-        
+        <script src='assets/angular/app/controllers/news.list.controller.js'></script>
+        <script src='assets/angular/app/controllers/group_news.list.controller.js'></script>
+        <script src='assets/angular/app/controllers/category.list.controller.js'></script>
         
 
     <!-- google maps api-->

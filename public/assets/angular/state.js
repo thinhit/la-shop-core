@@ -99,7 +99,15 @@ idsCore
                         ]
                     },
                 })
-
+                .state('auth.product.category',{
+                    page_title:titlePrefix + '- Thể loại sản phẩm',
+                    data: {
+                        ncyBreadcrumbLabel:'Thể loại sản phẩm'
+                    },
+                    url: '/category',
+                    templateUrl: 'views/admin/category/list.html',
+                    controller:'category'
+                })
                 // Forms (parent state)
                 .state('auth.news', {
                     // With abstract set to true, that means this state can not be explicitly activated.
@@ -118,9 +126,26 @@ idsCore
                     templateUrl: 'views/admin/group_news/list.html',
                     controller:'group_news'
                 })
-
-
                 .state('auth.news.list_news', {
+                    page_title: titlePrefix + ' - Danh sách tin tức',
+                    data: {
+                        ncyBreadcrumbLabel: 'Danh sách tin tức'
+                    },
+                    url: '/news',
+                    templateUrl: 'views/admin/news/list.html',
+                    resolve: {
+                        files: [
+                            'uiLoad',
+                            function (uiLoad) {
+                                return uiLoad.load([
+                                    'assets/lib/iCheck/icheck.min.js',
+                                ]);
+                            }
+                        ]
+                    },
+                    controller: 'NewsListController'
+                })
+                .state('auth.news.list_news1', {
                     page_title: titlePrefix + ' - Danh sách tin tức',
                     data: {
                         ncyBreadcrumbLabel: 'Danh sách tin tức'

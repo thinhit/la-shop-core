@@ -1,7 +1,7 @@
 <?php namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
-class Group_news extends Model {
+class Category extends Model {
 
 	
 
@@ -10,7 +10,7 @@ class Group_news extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'group_news';
+	protected $table = 'category';
 	
 	var $timestamps = false;
 	/**
@@ -18,4 +18,5 @@ class Group_news extends Model {
 	 *
 	 * @var array
 	 */
+	
 }

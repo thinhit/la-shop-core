@@ -27,6 +27,7 @@ Route::get('home2',function() {
 Route::group(['prefix' => 'api/v1', 'middleware' => 'auth'], function()
 {	
 	Route::controller('group_news', 'Api\GroupnewsController');
+	Route::controller('category', 'Api\CategoryController');
 	Route::controller('news', 'Api\NewsController');
 
 });
