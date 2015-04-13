@@ -52,13 +52,22 @@ idsCore
                 templateUrl: 'views/admin/category/add.html',
                 size: size,
                 controller: function ($scope, $modalInstance, growl, $http) {
+                    // var par = parent_id || $scope.myOption;
+                    $scope.category =  function() {
+                        $http.get(base_url+ 'category/parent').success(function(resp){
+                            $scope.grs = resp;
+                        }).error(function(err){
+                            console.log(err);
+                        })    
+                    }
+                    $scope.category();
                     $scope.add_item = function() {
                         $scope.loading = true;
                         $scope.disable = true;
                         $http({
                             method  : 'POST',
                             url     : base_url+'category/post',
-                            data    : {name:$scope.name,parent_id:parent_id},
+                            data    : {name:$scope.name,parent_id:par},
                             dataType: 'json'
                             }).success(function (result){
                                 if(result.message == 'Done') {

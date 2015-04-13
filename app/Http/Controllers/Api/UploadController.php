@@ -37,11 +37,8 @@ class UploadController extends Controller {
 	 * @return Response
 	 */
 	public function postIndex(Request $request){
-		
 		$file = $request->file('newsFile');
 		$extension = $file->getClientOriginalExtension();
 		return Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
-
-
 	}
 }

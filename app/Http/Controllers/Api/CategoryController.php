@@ -56,9 +56,10 @@ class CategoryController extends Controller {
 	}
 
 	public function postPost(Request $request){
-		$arr      = ['error' => false,'message' => '','data' => ''];
-		$col_data = DB::table('Category')->lists('name');
-		$name     = $request->input('name');
+		$arr        = ['error' => false,'message' => '','data' => ''];
+		$col_data   = DB::table('Category')->lists('name');
+		$name       = $request->input('name');
+		$_cat       = $request->input('category');
 		$parent_key = $request->input('parent_id');
 		if(isset($name) && !empty($name)) {
 			if(in_array($name,$col_data)) {
@@ -67,7 +68,7 @@ class CategoryController extends Controller {
 				$Category              = new Models\Category;
 				$Category->name        = $name;
 				$Category->create_time = date("Y-m-d H:i:s");
-				$Category->parent_key = $parent_key;
+				$Category->parent_key  = $parent_key;
 				$rs           = $Category->save();
 				$LastInsertId = $Category->id;
 				$data = ['id' => $LastInsertId,
@@ -131,6 +132,11 @@ class CategoryController extends Controller {
 			$arr = array('error' => false,'message' => 'not Done');
 		}
 		return json_encode($arr);
+	}
+
+	public function getParent(Request $request) {
+		$Model = DB::table('category')->select('name','id')->get();
+		return Response::json($Model);
 	}
 
 }

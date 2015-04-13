@@ -39,14 +39,6 @@ class NewsController extends Controller {
 	}
 
 	public function getGroupnews(Request $Request) {
-		// $redis = Redis::connection();
-		// $redis->set('name','tran cong dao');
-		// $a = $redis->get('name');
-		// if(!empty($a)) {
-		// 	echo $a;
-		// }
-		// var_dump($a);die;
-		// var_dump($uri);die;
 		$Model = DB::table('group_news')->select('name')->get();
 		return Response::json($Model);
 	}
