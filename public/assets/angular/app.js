@@ -15,7 +15,8 @@ var idsCore = angular.module('idsCore',
         'NgSwitchery', 
         'textAngular',
         'xeditable',
-        'angularFileUpload'
+        'angularFileUpload',
+        'angularTreeview'
     ]
 );
 

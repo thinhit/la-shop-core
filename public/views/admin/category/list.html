@@ -18,57 +18,17 @@
                 <label for=""><i style="color:red">"nhấn đúp chuột vào dòng cần thêm để thêm con cho thể loại đó !"</i></label>
             </div>
         </div>
+        <b>Selected Node</b> : {{mytree.currentNode}}</span>
         <div class="row">
             <div class="col-md-12">
-                <table style="margin-bottom:0px" class="table table-yuk2 toggle-arrow-tiny" id="footable_demo" data-filter="#textFilter" data-page-size="5">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>TÊN THỂ LOẠI</th>
-                            <th>CHA THỂ LOẠI</th>
-                            <th>NGÀY TẠO</th>
-                            <th>NGÀY SỬA</th>
-                            <th>HÀNH ĐỘNG</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="gr in group_new | limitTo:itemsPerPage" ng-dblclick="rowSelected(gr.id,$index)">
-                            <td>{{$index+1}}</td>
-                            <td>{{gr.name}}</td>
-                            <td>{{gr.parent_key}}</td>
-                            <td>{{gr.create_time}}</td>
-                            <td>{{gr.update_time}}</td>
-                            <td>
-                                <div class="btn-group">
-                                  <button ng-disabled="disable" aria-expanded="false" data-toggle="dropdown" class="btn btn-sm btn-warning dropdown-toggle" type="button">
-                                    Hành động <span class="caret"></span>
-                                  </button>
-                                  <ul role="menu" class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" ng-click="modalOpen_update(gr)">Cập nhật</a></li>
-                                    <li><a href="javascript:void(0)" ng-click="delete($index,gr.id)">Xóa</a></li>
-                                  </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot class="hide-if-no-paging">
-                        <tr>
-                            <td colspan="5">
-                                <ul class="pagination pagination-sm"></ul>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-                <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" rotate="false" num-pages="numPages" ng-click="list()"></pagination>
-
-                <div id="facebookG" ng-if="loading">
-                    <div id="blockG_1" class="facebook_blockG" >
-                    </div>
-                    <div id="blockG_2" class="facebook_blockG">
-                    </div>
-                    <div id="   blockG_3" class="facebook_blockG">
-                </div>
-            </div>
+            	<div
+				  data-angular-treeview="true"
+				  data-tree-id="mytree"
+				  data-tree-model="group_new"
+				  data-node-id="id"
+				  data-node-label="name"
+				  data-node-children="children" >
+				</div>
             </div>
         </div>
     </div>

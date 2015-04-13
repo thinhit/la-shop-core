@@ -36,6 +36,8 @@
         <script src="assets/angular/angularjs/angular.min.js"></script>
         <script src="assets/angular/angularjs/angular-animate.min.js"></script>
         <script src="assets/angular/angularjs/angular-cookies.min.js"></script>
+        <script src="assets/angular/angularjs/angular-cookies.min.js"></script>
+        <script src="assets/angular/angularjs/angular.treeview.js"></script>
         <script src="assets/angular/angularjs/angular-sanitize.min.js"></script>
         <script src="assets/angular/angularjs/angular-resource.min.js"></script>
     <!-- ui-router -->
@@ -99,6 +101,7 @@
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
     <!-- main stylesheet -->
+        <link rel="stylesheet" type="text/css" href="assets/css/angular.treeview.css">
 		<link href="assets/css/main.min.css" rel="stylesheet" media="screen" id="mainCss">
         <link href="assets/css/animation.css" rel="stylesheet" media="screen" id="mainCss">
         <!-- edit xeditable -->

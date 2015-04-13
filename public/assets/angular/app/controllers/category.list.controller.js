@@ -13,10 +13,24 @@ idsCore
 
         $scope.currentPage  = 1;
         $scope.itemsPerPage = 10; 
-        $scope.list = function() {
+        // $scope.list = function() {
+        //     $scope.loading = true;
+        //     $http({
+        //         url     : base_url+'category?limit='+$scope.itemsPerPage+'&page='+$scope.currentPage,
+        //         dataType: 'json'
+        //         }).success(function (e){
+        //             $scope.loading    = false;
+        //             $scope.group_new  = e.data;
+        //             $scope.totalItems = e.total;
+        //             $scope.maxSize    = 5;
+        //         }).error(function (err){
+        //             console.log(err);
+        //         });
+        // };
+         $scope.list = function() {
             $scope.loading = true;
             $http({
-                url     : base_url+'category?limit='+$scope.itemsPerPage+'&page='+$scope.currentPage,
+                url     : base_url+'category/test',
                 dataType: 'json'
                 }).success(function (e){
                     $scope.loading    = false;
@@ -27,7 +41,6 @@ idsCore
                     console.log(err);
                 });
         };
-
         $scope.list();
         $scope.delete = function(index,id) {
             $scope.loading = true;
@@ -132,15 +145,12 @@ idsCore
                 controller: function ($scope, $modalInstance, growl, $http) {
                     $scope.category =  function() {
                         $http.get(base_url+ 'category/parent').success(function(resp){
-                            $scope.grs = resp;
-                            
+                            $scope.grs = resp;       
                         }).error(function(err){
                             console.log(err);
                         })    
                     }
-
                     $scope.category();
-                    
                     $scope.row = gr;
                     $scope.edit_item = function() {
                         $scope.loading = true;
@@ -148,7 +158,7 @@ idsCore
                         $http({
                             method  : 'POST',
                             url     : base_url+'category/push',
-                            data    : {id:gr.id,name:$scope.row.name},
+                            data    : {id:gr.id,name:$scope.row.name,parent_id:$scope.row.parent_key},
                             dataType: 'json'
                             }).success(function (result){
                                 if(result.message == 'Done') {

@@ -55,6 +55,31 @@ class CategoryController extends Controller {
 
 	}
 
+	public function getTest(Request $request) {
+		$Model = new Models\Category();
+		$Total = $Model->get()->count();
+		$Model = $Model->orderBy('id','DESC');
+		$datas = $this->paging($Model, $request);
+		$result     = array();
+		foreach ($datas as $key => $value) {
+			if(empty($value['parent_key'])) continue;
+			$_data = DB::table('category')->where('parent_key','=',$value['parent_key'])->get();
+			$result[] = array(
+				'id'       => $value['id'],
+				'name'     => $value['name'],
+				'children' => $_data
+				);
+		}
+		$_objReturn = array(
+			"error" 	=> false,
+			"data"		=> array(),
+			"message"	=> "",
+			"total"		=> $Total
+		);
+		$_objReturn['data'] = $result;
+		return Response::json($_objReturn);
+	}
+
 	public function postPost(Request $request){
 		$arr        = ['error' => false,'message' => '','data' => ''];
 		$col_data   = DB::table('Category')->lists('name');
@@ -92,26 +117,24 @@ class CategoryController extends Controller {
 	}
 	
 	public function postPush(Request $request) {
-		$id                      = $request->input('id');
-		$name                    = $request->input('name');
+		$id         = $request->input('id');
+		$name       = $request->input('name');
+		$parent_key = $request->input('parent_id');
 		$col_data = DB::table('category')->lists('name');
 		if(isset($name) && !empty($name)) {
-			if(in_array($name,$col_data)) {
-				$arr['message'] = 'exits_data';
+			$Category              = Models\Category::find($id);
+			$Category->name        = $name;
+			$Category->parent_key  = $parent_key;
+			$Category->update_time = date("Y-m-d H:i:s");
+			$rs   = $Category->save();
+			$data = ['id' => $id,'name' => $name,'update_time' => date("Y-m-d H:i:s"),'parent_key' => $parent_key];
+			$arr  = ['error' => false,'message' => '','data' => ''];
+			if($rs == true) {
+				$arr['data']    = $data;
+				$arr['message'] = 'Done';
 			} else {
-				$Category              = Models\Category::find($id);
-				$Category->name        = $name;
-				$Category->update_time = date("Y-m-d H:i:s");
-				$rs = $Category->save();
-				$data = ['id' => $id,'name' => $name,'update_time' => date("Y-m-d H:i:s")];
-				$arr = ['error' => false,'message' => '','data' => ''];
-				if($rs == true) {
-					$arr['data']    = $data;
-					$arr['message'] = 'Done';
-				} else {
-					$arr['error']   = true;
-					$arr['message'] = 'not done ';
-				}
+				$arr['error']   = true;
+				$arr['message'] = 'not done ';
 			}
 		} else {
 			$arr['message'] = 'null';
