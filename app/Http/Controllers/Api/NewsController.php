@@ -39,8 +39,21 @@ class NewsController extends Controller {
 	}
 
 	public function getGroupnews(Request $Request) {
-		$Model = DB::table('group_news')->select('name')->get();
-		return Response::json($Model);
+		$model = DB::table('group_news')->select('id', 'name');
+		$Total = $model->count();
+		$datas = $model->get();
+		
+		$_objReturn = array(
+			"error" 	=> false,
+			"data"		=> array(),
+			"message"	=> "",
+			"total"		=> $Total
+		);
+
+		if($datas){
+			$_objReturn['data'] = $datas;
+		}
+		return Response::json($_objReturn);
 	}
 
 }

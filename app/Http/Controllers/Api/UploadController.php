@@ -35,10 +35,21 @@ class UploadController extends Controller {
 	 * Show the application dashboard to the user.
 	 *
 	 * @return Response
-	 */
+	 */	
+	public function getIndex (){
+		return ':)';
+	}
 	public function postIndex(Request $request){
 		$file = $request->file('newsFile');
 		$extension = $file->getClientOriginalExtension();
-		return Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+		$_newFileName = 'news_thumb/'.md5($file->getFilename().time()).'.'.$extension;
+		$result = Storage::disk('upload')->put($_newFileName,  File::get($file));
+		
+		return Response::json(array(
+			"error" 	=> !$result,
+			"data"		=> ($result) ? $_newFileName : "",
+			"message" 	=> ""
+		));
+
 	}
 }
