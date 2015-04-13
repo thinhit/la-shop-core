@@ -1,8 +1,8 @@
 /* Controllers */
 idsCore
     .controller('category',['$scope','$http','growl','$modal',function($scope,$http,growl,$modal) {
-        $scope.rowSelected = function(parent_id) {
-            $scope.modalOpen_add(parent_id);
+        $scope.rowSelected = function(parent_id,index) {
+            $scope.modalOpen_add(parent_id,index);
         }
         $scope.focusElement = 'name_focus';
         $scope.user = {
@@ -47,27 +47,34 @@ idsCore
                 });
         };
         var modalInstance;
-        $scope.modalOpen_add = function (parent_id,size) {
+        $scope.modalOpen_add = function (parent_id,index,size) {
             modalInstance = $modal.open({
                 templateUrl: 'views/admin/category/add.html',
                 size: size,
                 controller: function ($scope, $modalInstance, growl, $http) {
-                    // var par = parent_id || $scope.myOption;
                     $scope.category =  function() {
                         $http.get(base_url+ 'category/parent').success(function(resp){
                             $scope.grs = resp;
+                            if(index != null) {
+                                $scope.myOption = $scope.grs[index];    
+                            }
                         }).error(function(err){
                             console.log(err);
                         })    
                     }
                     $scope.category();
                     $scope.add_item = function() {
+                        var par = "";
+                        if(typeof $scope.myOption !='undefined') {
+                            par = $scope.myOption.id;
+                        }
+                        var _parId = parent_id || par;    
                         $scope.loading = true;
                         $scope.disable = true;
                         $http({
                             method  : 'POST',
                             url     : base_url+'category/post',
-                            data    : {name:$scope.name,parent_id:par},
+                            data    : {name:$scope.name,parent_id:_parId},
                             dataType: 'json'
                             }).success(function (result){
                                 if(result.message == 'Done') {
@@ -116,6 +123,17 @@ idsCore
                 templateUrl: 'views/admin/category/edit.html',
                 size: size,
                 controller: function ($scope, $modalInstance, growl, $http) {
+                    $scope.category =  function() {
+                        $http.get(base_url+ 'category/parent').success(function(resp){
+                            $scope.grs = resp;
+                            if(index != null) {
+                                $scope.myOption = $scope.grs[index];    
+                            }
+                        }).error(function(err){
+                            console.log(err);
+                        })    
+                    }
+                    $scope.category();
                     $scope.row = gr;
                     $scope.edit_item = function() {
                         $scope.loading = true;

@@ -4,13 +4,13 @@
 	        <span aria-hidden="true">×</span>
 	        <span class="sr-only">Close</span>
 	    </button>
-	    <h4 class="modal-title ng-binding">Add Category</h4>
+	    <h4 class="modal-title ng-binding">Thêm mới chuyên mục</h4>
 	</div>
 	<form name="myForm">
 		 <div class="form-group">
         	<label class="col-sm-2 control-label" for="name">Thể loại :</label>
             <div class="col-sm-12">
-				<select ng-model="myOption" ng-options = "x for x in grs track by x.name" name="category" id="category" class="form-control" required>
+				<select ng-model="myOption" ng-options = "gr as gr.name for gr in grs" name="category" id="category" class="form-control">
 	                <option value=""></option>
 	            </select>
 

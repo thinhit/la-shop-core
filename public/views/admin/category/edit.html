@@ -7,6 +7,16 @@
 	    <h4 class="modal-title ng-binding">Edit Category</h4>
 	</div>
 	<form name="myForm">
+		<div class="form-group">
+        	<label class="col-sm-2 control-label" for="name">Thể loại :</label>
+            <div class="col-sm-12">
+				<select ng-model="myOption" ng-options = "gr as gr.name for gr in grs" name="category" id="category" class="form-control">
+	                <option value=""></option>
+	            </select>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
 		<div class="modal-body ng-binding ng-scope">
 		    <input type="text" ng-model="row.name" class="form-control" name='name' id="name_focus" ng-keyup="keyPress(event=$event)" required>
 		</div>

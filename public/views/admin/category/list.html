@@ -12,7 +12,7 @@
     <div class="col-md-10">
         <div class="row">
             <div class="col-md-3">
-                <button ng-disabled="disable" class="btn btn-primary" ng-click="modalOpen_add()">Add</button>
+                <button ng-disabled="disable" class="btn btn-primary" ng-click="modalOpen_add()">Thêm mới</button>
             </div>
             <div class="col-md-5">
                 <label for=""><i style="color:red">"nhấn đúp chuột vào dòng cần thêm để thêm con cho thể loại đó !"</i></label>
@@ -24,15 +24,15 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>NAME</th>
-                            <th>Parent</th>
-                            <th>CREAT TIME</th>
-                            <th>UPDATE TIME</th>
-                            <th>ACTION</th>
+                            <th>TÊN THỂ LOẠI</th>
+                            <th>CHA THỂ LOẠI</th>
+                            <th>NGÀY TẠO</th>
+                            <th>NGÀY SỬA</th>
+                            <th>HÀNH ĐỘNG</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="gr in group_new | limitTo:itemsPerPage" ng-dblclick="rowSelected(gr.id)">
+                        <tr ng-repeat="gr in group_new | limitTo:itemsPerPage" ng-dblclick="rowSelected(gr.id,$index)">
                             <td>{{$index+1}}</td>
                             <td>{{gr.name}}</td>
                             <td>{{gr.parent_key}}</td>

@@ -74,7 +74,8 @@ class CategoryController extends Controller {
 				$data = ['id' => $LastInsertId,
 							'name' => $name,
 							'create_time' => date("Y-m-d H:i:s"),
-							'parent_key' => $parent_key];
+							'parent_key' => $parent_key
+							];
 				if($rs == true) {
 					$arr['data']    = $data;
 					$arr['message'] = 'Done';
@@ -135,7 +136,7 @@ class CategoryController extends Controller {
 	}
 
 	public function getParent(Request $request) {
-		$Model = DB::table('category')->select('name','id')->get();
+		$Model = DB::table('category')->select('name','id')->orderBy('id','DESC')->get();
 		return Response::json($Model);
 	}
 
