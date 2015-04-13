@@ -1,13 +1,16 @@
 /* Controllers */
 idsCore
     .controller('category',['$scope','$http','growl','$modal',function($scope,$http,growl,$modal) {
+        
         $scope.rowSelected = function(parent_id,index) {
             $scope.modalOpen_add(parent_id,index);
         }
         $scope.focusElement = 'name_focus';
         $scope.user = {
             name: 'awesome user'
-          };
+        };
+
+
         $scope.currentPage  = 1;
         $scope.itemsPerPage = 10; 
         $scope.list = function() {
@@ -24,6 +27,7 @@ idsCore
                     console.log(err);
                 });
         };
+
         $scope.list();
         $scope.delete = function(index,id) {
             $scope.loading = true;
@@ -46,6 +50,9 @@ idsCore
                     console.log(err);
                 });
         };
+
+
+
         var modalInstance;
         $scope.modalOpen_add = function (parent_id,index,size) {
             modalInstance = $modal.open({
@@ -126,14 +133,14 @@ idsCore
                     $scope.category =  function() {
                         $http.get(base_url+ 'category/parent').success(function(resp){
                             $scope.grs = resp;
-                            if(index != null) {
-                                $scope.myOption = $scope.grs[index];    
-                            }
+                            
                         }).error(function(err){
                             console.log(err);
                         })    
                     }
+
                     $scope.category();
+                    
                     $scope.row = gr;
                     $scope.edit_item = function() {
                         $scope.loading = true;

@@ -10,11 +10,12 @@
 		<div class="form-group">
         	<label class="col-sm-2 control-label" for="name">Thể loại :</label>
             <div class="col-sm-12">
-				<select ng-model="myOption" ng-options = "gr as gr.name for gr in grs" name="category" id="category" class="form-control">
+				<select ng-model="row.parent_key" ng-options = "gr.id as gr.name for gr in grs" name="category" id="category" class="form-control">
 	                <option value=""></option>
 	            </select>
 
             </div>
+
         </div>
         <div class="clearfix"></div>
 		<div class="modal-body ng-binding ng-scope">
