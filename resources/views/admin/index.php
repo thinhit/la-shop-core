@@ -102,6 +102,7 @@
 
     <!-- main stylesheet -->
         <link rel="stylesheet" type="text/css" href="assets/css/angular.treeview.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 		<link href="assets/css/main.min.css" rel="stylesheet" media="screen" id="mainCss">
         <link href="assets/css/animation.css" rel="stylesheet" media="screen" id="mainCss">
         <!-- edit xeditable -->

@@ -1,94 +1,60 @@
 /* Controllers */
 idsCore
     .controller('category',['$scope','$http','growl','$modal',function($scope,$http,growl,$modal) {
-        
-        $scope.rowSelected = function(parent_id,index) {
-            $scope.modalOpen_add(parent_id,index);
-        }
         $scope.focusElement = 'name_focus';
         $scope.user = {
             name: 'awesome user'
         };
-
-
-        $scope.currentPage  = 1;
-        $scope.itemsPerPage = 10; 
-        // $scope.list = function() {
-        //     $scope.loading = true;
-        //     $http({
-        //         url     : base_url+'category?limit='+$scope.itemsPerPage+'&page='+$scope.currentPage,
-        //         dataType: 'json'
-        //         }).success(function (e){
-        //             $scope.loading    = false;
-        //             $scope.group_new  = e.data;
-        //             $scope.totalItems = e.total;
-        //             $scope.maxSize    = 5;
-        //         }).error(function (err){
-        //             console.log(err);
-        //         });
-        // };
          $scope.list = function() {
             $scope.loading = true;
             $http({
-                url     : base_url+'category/test',
+                url     : base_url+'category',
                 dataType: 'json'
                 }).success(function (e){
                     $scope.loading    = false;
                     $scope.group_new  = e.data;
-                    $scope.totalItems = e.total;
-                    $scope.maxSize    = 5;
                 }).error(function (err){
                     console.log(err);
                 });
         };
         $scope.list();
-        $scope.delete = function(index,id) {
-            $scope.loading = true;
-            $scope.disable = true;
-            $http({
-                method  : 'POST',
-                url     : base_url+'category/delete',
-                data    : {id:id},
-                dataType: 'json'
-                }).success(function (result){
-                    if(result.message == 'Done') {
-                        growl.success("Delete a success !");
-                        $scope.group_new.splice(index,1);
-                        $scope.disable = false;
-                        $scope.loading = false;
-                        $scope.list();
-                    }
-                }).error(function (err){
-                    growl.warning("Error!");
-                    console.log(err);
-                });
+        $scope.delete = function(currentNode) {
+            if(currentNode.children != '' && currentNode.hasOwnProperty('children')) {
+                growl.warning("vui lòng xóa hết dữ liệu bên trong trước!");
+            } else {
+                $scope.loading = true;
+                $scope.disable = true;
+                $http({
+                    method  : 'POST',
+                    url     : base_url+'category/delete',
+                    data    : {id:currentNode.id},
+                    dataType: 'json'
+                    }).success(function (result){
+                        if(result.message == 'Done') {
+                            growl.success("Xóa thành công !");
+                            $scope.disable = false;
+                            $scope.loading = false;
+                            $scope.list();
+                        }
+                    }).error(function (err){
+                        growl.warning("Error!");
+                        console.log(err);
+                    });    
+            }
+            
         };
-
-
-
         var modalInstance;
-        $scope.modalOpen_add = function (parent_id,index,size) {
+        $scope.modalOpen_add = function (currentNode,index,size) {
             modalInstance = $modal.open({
                 templateUrl: 'views/admin/category/add.html',
                 size: size,
                 controller: function ($scope, $modalInstance, growl, $http) {
-                    $scope.category =  function() {
-                        $http.get(base_url+ 'category/parent').success(function(resp){
-                            $scope.grs = resp;
-                            if(index != null) {
-                                $scope.myOption = $scope.grs[index];    
-                            }
-                        }).error(function(err){
-                            console.log(err);
-                        })    
-                    }
-                    $scope.category();
                     $scope.add_item = function() {
                         var par = "";
-                        if(typeof $scope.myOption !='undefined') {
-                            par = $scope.myOption.id;
+                        if(typeof currentNode !='undefined') {
+                            par = currentNode.id;
                         }
-                        var _parId = parent_id || par;    
+                        var _parId = par || 0;    
                         $scope.loading = true;
                         $scope.disable = true;
                         $http({
@@ -100,14 +66,14 @@ idsCore
                                 if(result.message == 'Done') {
                                     var config = {};
                                     $modalInstance.close(result.data);
-                                    growl.success("This add a success !",{disableCountDown: true});
+                                    growl.success("Thêm mới thành công !",{disableCountDown: true});
                                     $scope.disable = false;
                                     $scope.loading = false;
                                 } else if(result.message == 'exits_data') {
-                                    growl.warning("Name already exists!");
+                                    growl.warning("Tên đã tồn tại!");
                                     $scope.loading = false;
                                 } else if(result.message == 'null') {
-                                    growl.warning("Name not null!");
+                                    growl.warning("Yêu cập nhập tên!");
                                     $scope.loading = false;
                                 }
                             }).error(function (err){
@@ -131,46 +97,37 @@ idsCore
                 }
             });
             modalInstance.result.then(function (newItem) {
-              $scope.group_new.unshift(newItem);
-              $scope.totalItems++;
+              $scope.list();
             }, function () {
               //$log.info('Modal dismissed at: ' + new Date());
             });
         };
         //add
-        $scope.modalOpen_update = function (gr,size) {
+        $scope.modalOpen_update = function (currentNode,size) {
             modalInstance = $modal.open({
                 templateUrl: 'views/admin/category/edit.html',
                 size: size,
                 controller: function ($scope, $modalInstance, growl, $http) {
-                    $scope.category =  function() {
-                        $http.get(base_url+ 'category/parent').success(function(resp){
-                            $scope.grs = resp;       
-                        }).error(function(err){
-                            console.log(err);
-                        })    
-                    }
-                    $scope.category();
-                    $scope.row = gr;
+                    $scope.row = currentNode;
                     $scope.edit_item = function() {
                         $scope.loading = true;
                         $scope.disable = true;
                         $http({
                             method  : 'POST',
                             url     : base_url+'category/push',
-                            data    : {id:gr.id,name:$scope.row.name,parent_id:$scope.row.parent_key},
+                            data    : {id:currentNode.id,name:$scope.row.name},
                             dataType: 'json'
                             }).success(function (result){
                                 if(result.message == 'Done') {
                                     $modalInstance.close(result.data);
-                                    growl.success("This edit a success !");
+                                    growl.success("Chỉnh sửa thành công!");
                                     $scope.disable = false;
                                     $scope.loading = false;
                                 } else if(result.message == 'exits_data') {
-                                    growl.warning("Name already exists!");
+                                    growl.warning("Tên đã tồn tại!");
                                     $scope.loading = false;
                                 } else if(result.message == 'null') {
-                                    growl.warning("Name not null!");
+                                    growl.warning("Yêu cầu nhập tên!");
                                     $scope.loading = false;
                                 }
                             }).error(function (err){

@@ -34,41 +34,26 @@ class CategoryController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function getIndex(Request $request){
-		$Model = new Models\Category();
-		$Total = $Model->get()->count();
-		$Model = $Model->orderBy('id','DESC');
-		$datas = $this->paging($Model, $request);
 
-		$_objReturn = array(
-			"error" 	=> false,
-			"data"		=> array(),
-			"message"	=> "",
-			"total"		=> $Total
-		);
-
-		if($datas){
-			$_objReturn['data'] = $datas;
-		}
-		return Response::json($_objReturn);
-
-
-	}
-
-	public function getTest(Request $request) {
-		$Model = new Models\Category();
-		$Total = $Model->get()->count();
-		$Model = $Model->orderBy('id','DESC');
-		$datas = $this->paging($Model, $request);
-		$result     = array();
-		foreach ($datas as $key => $value) {
-			if(empty($value['parent_key'])) continue;
-			$_data = DB::table('category')->where('parent_key','=',$value['parent_key'])->get();
+	public function getIndex(Request $request) {
+		$Model  = new Models\Category();
+		$Total  = $Model->get()->count();
+		$Model  = $Model->orderBy('id','DESC')->where('parent_key','=','0');
+		$datas  = $this->paging($Model, $request);
+		$result = array();
+		// foreach ($datas as $key => $value) {
+		// 	if((int)$value['id'] = (int)$value['parent_key']) {
+		// 		unset($datas[$key]);	
+		// 	}
+		// }
+		foreach ($datas as $k => $item) {
+			$_data    = DB::table('category')->where('parent_key','=',$item['id'])->get();
 			$result[] = array(
-				'id'       => $value['id'],
-				'name'     => $value['name'],
+				'id'       => $item['id'],
+				'name'     => $item['name'],
 				'children' => $_data
 				);
+
 		}
 		$_objReturn = array(
 			"error" 	=> false,
@@ -79,6 +64,7 @@ class CategoryController extends Controller {
 		$_objReturn['data'] = $result;
 		return Response::json($_objReturn);
 	}
+
 
 	public function postPost(Request $request){
 		$arr        = ['error' => false,'message' => '','data' => ''];
@@ -119,15 +105,13 @@ class CategoryController extends Controller {
 	public function postPush(Request $request) {
 		$id         = $request->input('id');
 		$name       = $request->input('name');
-		$parent_key = $request->input('parent_id');
 		$col_data = DB::table('category')->lists('name');
 		if(isset($name) && !empty($name)) {
 			$Category              = Models\Category::find($id);
 			$Category->name        = $name;
-			$Category->parent_key  = $parent_key;
 			$Category->update_time = date("Y-m-d H:i:s");
 			$rs   = $Category->save();
-			$data = ['id' => $id,'name' => $name,'update_time' => date("Y-m-d H:i:s"),'parent_key' => $parent_key];
+			$data = ['id' => $id,'name' => $name,'update_time' => date("Y-m-d H:i:s")];
 			$arr  = ['error' => false,'message' => '','data' => ''];
 			if($rs == true) {
 				$arr['data']    = $data;
@@ -156,11 +140,6 @@ class CategoryController extends Controller {
 			$arr = array('error' => false,'message' => 'not Done');
 		}
 		return json_encode($arr);
-	}
-
-	public function getParent(Request $request) {
-		$Model = DB::table('category')->select('name','id')->orderBy('id','DESC')->get();
-		return Response::json($Model);
 	}
 
 }

@@ -1,77 +1,68 @@
 <div class="row">
-    <div class="col-md-2">
-        <div class="list-group">
-            <a ui-sref="auth.plugins.tables.footable" ng-class="{ active: $state.includes('auth.plugins.tables.footable') }" class="list-group-item">Footable</a>
-            <a ui-sref="auth.plugins.tables.datatable" ng-class="{ active: $state.includes('auth.plugins.tables.datatable') }" class="list-group-item">Datatable</a>
+    <div class="row">
+        <div class="col-md-3">
+            <input id="textFilter" type="text" class="form-control input-sm">
+            <span class="help-block">Filter</span>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control input-sm" ng-change="filterTable(userStatus)" ng-model="userStatus">
+                <option></option>
+                <option value="active">Active</option>
+                <option value="disabled">Disabled</option>
+                <option value="suspended">Suspended</option>
+            </select>
+            <span class="help-block">Status</span>
+        </div>
+        <div class="col-md-3">
+            <a class="btn btn-default btn-sm" ng-click="clearFilters()">Clear</a>
         </div>
     </div>
-    <div class="col-md-10">
-        
-        <div class="row">
-            <div class="col-md-3">
-                <input id="textFilter" type="text" class="form-control input-sm">
-                <span class="help-block">Filter</span>
-            </div>
-            <div class="col-md-3">
-                <select class="form-control input-sm" ng-change="filterTable(userStatus)" ng-model="userStatus">
-                    <option></option>
-                    <option value="active">Active</option>
-                    <option value="disabled">Disabled</option>
-                    <option value="suspended">Suspended</option>
-                </select>
-                <span class="help-block">Status</span>
-            </div>
-            <div class="col-md-3">
-                <a class="btn btn-default btn-sm" ng-click="clearFilters()">Clear</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-yuk2 toggle-arrow-tiny" id="footable_demo" data-filter="#textFilter" data-page-size="5">
-                    <thead>
-                        <tr>
-                            <th data-toggle="true"><input type="checkbox" class="icheck"></th>
-                            <th>Hình ảnh</th>
-                            <th >Tên sản phẩm</th>
-                            <th >Mã sản phẩm</th>
-                            <th >Giá</th>
-                            <th >Số lượng</th>
-                            <th >Trạng thái</th>
-                            <th >Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in [1, 2 , 3, 4, 5, 6, 7]">
-                            <td><input type="checkbox" ></td>
-                            <td><img src="http://sieuthi247vn.com/image/cache/data/lohoi/343_Forever_Aloe_Activator_970c60bc47-40x40.jpg" alt="Aloe Activator" style="padding: 1px; border: 1px solid #DDDDDD;"></td>
-                            <td>Bình hoa thủy tinh (pha lê) ước nguyện  </td>
-                            <td>QT 16</td>
-                            <td>3.500.000 đ</td>
-                            <td>100</td>
-                            <td> <input type="checkbox" class="js-switch mini-switch" ng-init="extEl_switch_b = true" ng-model="extEl_switch_b" ui-switch /></td>
-                            <td><!-- Single button -->
-                                <div class="btn-group">
-                                  <button type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    Hành động <span class="caret"></span>
-                                  </button>
-                                  <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Cập nhật</a></li>
-                                    <li><a href="#">Xóa</a></li>
-                                  </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                    <tfoot class="hide-if-no-paging">
-                        <tr>
-                            <td colspan="5">
-                                <ul class="pagination pagination-sm"></ul>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-yuk2 toggle-arrow-tiny" id="footable_demo" data-filter="#textFilter" data-page-size="5">
+                <thead>
+                    <tr>
+                        <th data-toggle="true"><input type="checkbox" class="icheck"></th>
+                        <th>Hình ảnh</th>
+                        <th >Tên sản phẩm</th>
+                        <th >Mã sản phẩm</th>
+                        <th >Giá</th>
+                        <th >Số lượng</th>
+                        <th >Trạng thái</th>
+                        <th >Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in [1, 2 , 3, 4, 5, 6, 7]">
+                        <td><input type="checkbox" ></td>
+                        <td><img src="http://sieuthi247vn.com/image/cache/data/lohoi/343_Forever_Aloe_Activator_970c60bc47-40x40.jpg" alt="Aloe Activator" style="padding: 1px; border: 1px solid #DDDDDD;"></td>
+                        <td>Bình hoa thủy tinh (pha lê) ước nguyện  </td>
+                        <td>QT 16</td>
+                        <td>3.500.000 đ</td>
+                        <td>100</td>
+                        <td> <input type="checkbox" class="js-switch mini-switch" ng-init="extEl_switch_b = true" ng-model="extEl_switch_b" ui-switch /></td>
+                        <td><!-- Single button -->
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                Hành động <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Cập nhật</a></li>
+                                <li><a href="#">Xóa</a></li>
+                              </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+                <tfoot class="hide-if-no-paging">
+                    <tr>
+                        <td colspan="5">
+                            <ul class="pagination pagination-sm"></ul>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </div>
 </div>
