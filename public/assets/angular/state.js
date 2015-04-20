@@ -145,25 +145,5 @@ idsCore
                     },
                     controller: 'NewsListController'
                 })
-                .state('auth.news.list_news1', {
-                    page_title: titlePrefix + ' - Danh sách tin tức',
-                    data: {
-                        ncyBreadcrumbLabel: 'Danh sách tin tức'
-                    },
-                    url: '/news',
-                    templateUrl: 'views/admin/news/list.html',
-                    resolve: {
-                        files: [
-                            'uiLoad',
-                            function (uiLoad) {
-                                return uiLoad.load([
-                                    'assets/lib/iCheck/icheck.min.js',
-                                ]);
-                            }
-                        ]
-                    },
-                    controller: 'NewsListController'
-                })
-
         }
     ]);

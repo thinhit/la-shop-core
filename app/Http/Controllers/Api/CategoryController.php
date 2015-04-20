@@ -41,11 +41,6 @@ class CategoryController extends Controller {
 		$Model  = $Model->orderBy('id','DESC')->where('parent_key','=','0');
 		$datas  = $this->paging($Model, $request);
 		$result = array();
-		// foreach ($datas as $key => $value) {
-		// 	if((int)$value['id'] = (int)$value['parent_key']) {
-		// 		unset($datas[$key]);	
-		// 	}
-		// }
 		foreach ($datas as $k => $item) {
 			$_data    = DB::table('category')->where('parent_key','=',$item['id'])->get();
 			$result[] = array(
@@ -53,8 +48,20 @@ class CategoryController extends Controller {
 				'name'     => $item['name'],
 				'children' => $_data
 				);
-
 		}
+		// foreach ($datas as $k => $item) {
+		// 	$_data    = DB::table('category')->where('parent_key','=',$item['id'])->get();
+		// 	foreach ($_data as $key => $value) {
+		// 		$_da_ta            = DB::table('category')->where('parent_key','=',$value->id)->get();
+		// 		$_child = array('children' => $_da_ta);
+		// 		array_push($_data, $_child);
+		// 	}
+		// 	$result[] = array(
+		// 		'id'       => $item['id'],
+		// 		'name'     => $item['name'],	
+		// 		'children' => $_data
+		// 		);
+		// }
 		$_objReturn = array(
 			"error" 	=> false,
 			"data"		=> array(),
