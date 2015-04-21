@@ -27,7 +27,7 @@ class News extends Model {
 
 	public function getAll(){
 		$_ret = $this->with(array('GroupNews', 'Author'));
-		$_ret = $_ret->select('id', 'name', 'images','count_views','description', 'create_time', 'update_time', 'status', 'group_news_id', 'user_id');
+		$_ret = $_ret->select('id', 'name', 'images','count_views','description','content', 'create_time', 'update_time', 'status', 'group_news_id', 'user_id');
 		return $_ret;
 	}
 

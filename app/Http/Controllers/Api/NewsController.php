@@ -19,6 +19,7 @@ class NewsController extends Controller {
 	 * @author thinhit http://github.con/thinhit
 	 * @return Response <json>
 	 */
+	/*Get data */
 	public function getIndex(Request $request)
 	{
 		$stt = $request->input('stt');
@@ -43,7 +44,7 @@ class NewsController extends Controller {
 		}
 		return Response::json($_objReturn);
 	}
-
+	/*Select box group news */
 	public function getGroupnews(Request $Request) {
 		$model = DB::table('group_news')->select('id', 'name');
 		$Total = $model->count();
@@ -61,7 +62,7 @@ class NewsController extends Controller {
 		}
 		return Response::json($_objReturn);
 	}
-
+	/*Add */
 	public function postPost(Request $request){
 		$arr      = ['error' => false,'message' => '','data' => ''];
 		$name     = $request->input('name');
@@ -79,7 +80,7 @@ class NewsController extends Controller {
 			$table->description   = $des;
 			$table->content       = $content;
 			$table->user_id       = $user_id;
-			$table->status        = 0;// 0 : không chọn , 1 là được chọn
+			$table->status        = 2;// 2 : không chọn , 1 là được chọn
 			$rs                   = $table->save();
 			$username             = DB::table('users')->where('id','=',$user_id)->pluck('name');
 			$gr_news              = DB::table('group_news')->where('id','=',$category)->pluck('name');
@@ -93,7 +94,7 @@ class NewsController extends Controller {
 					'content'       => $content,
 					'author'        => array('name' => $username),
 					'group_news'    => array('name' => $gr_news),
-					'status'        => 0// 0 : không chọn , 1 là được chọn
+					'status'        => 2// 2 : không chọn , 1 là được chọn
 					];
 			if($rs == true) {
 				$arr['data']    = $data;
@@ -109,7 +110,24 @@ class NewsController extends Controller {
 		return Response::json($arr);
 	}
 
+	/*change status */
+	public function postChangestatus(Request $request) {
+		$id     = $request->input('id');
+		$stt    = $request->input('status');
+		$status = $stt == 1 ? 2 : 1;
+		if(!isset($id) && empty($id)) {
+			return false;
+		}
+		$rs = DB::table('news')->where('id',$id)->update(array('status' => $status));
+		if($rs == true) {
+			$arr = array('error' => true,'message' => 'Done');
+		} else {
+			$arr = array('error' => false,'message' => 'not Done');
+		}
+		return json_encode($arr);
+	}
 
+	/*Delete */
 	public function postDelete(Request $request) {
 		$id   = $request->input('id');
 		if(!isset($id) && empty($id)) {

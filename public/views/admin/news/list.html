@@ -42,13 +42,18 @@
                             <td>
                                 <img src="uploads/{{list.images}}" alt="Aloe Activator" style="width:60px;height:40px;padding: 1px; border: 1px solid #DDDDDD;">
                             </td>
-                            <td><a href="">{{list.name}}</a></td>
+                            <td><a>{{list.name}}</a></td>
                             <td>{{list.group_news.name}}</td>
                             <td width="35%">{{list.description}}</td>
                             <td>{{list.author.name}}</td>
                             <td>{{list.count_views}} lượt</td>
-                            <td>
-                                <input type="checkbox" class="js-switch mini-switch" ng-model="extEl_switch_b" ui-switch />
+                            <td ng-if="list.status == 1">
+                                <a ng-click="change_status(list)"><input type="checkbox" class="js-switch mini-switch" ng-init="extEl_switch_b = true" ng-model="extEl_switch_b" ui-switch ng-click="change()"/>
+                                </a>
+                            </td>
+                            <td ng-if="list.status == 2">
+                                <a ng-click="change_status(list)"><input type="checkbox" class="js-switch mini-switch" ng-init="extEl_switch_b = false" ng-model="extEl_switch_b" ui-switch ng-click="change()"/>
+                                </a>
                             </td>
                             <td>2 ngày trước</td>
                             <td><!-- Single button -->
@@ -57,7 +62,7 @@
                                     Hành động <span class="caret"></span>
                                   </button>
                                   <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Cập nhật</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="modalOpen_update(list,$index)">Cập nhật</a></li>
                                     <li><a href="javascript:void(0)" ng-click="delete($index,list.id)">Xóa</a></li>
                                   </ul>
                                 </div>
