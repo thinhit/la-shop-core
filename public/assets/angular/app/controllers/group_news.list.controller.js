@@ -22,31 +22,6 @@ idsCore
                 });
         };
         $scope.list();
-        $scope.delete = function(index,id) {
-            if(confirm("Bạn muốn xóa chuyên mục này ?")){
-                $scope.loading = true;
-                $scope.disable = true;
-                $http({
-                    method  : 'POST',
-                    url     : base_url+'group_news/delete',
-                    data    : {id:id},
-                    dataType: 'json'
-                    }).success(function (result){
-                        if(result.message == 'Done') {
-                            growl.success("Xóa thành công chuyên mục !");
-                            $scope.group_new.splice(index,1);
-                            $scope.disable = false;
-                            $scope.loading = false;
-                            $scope.list();
-                        }else {
-                            growl.warning("Lỗi kết nối server, vui lòng thử lại sau  !");    
-                        }
-                    }).error(function (err){
-                        growl.warning("Lỗi kết nối server, vui lòng thử lại sau !");
-                        console.log(err);
-                    });
-            }
-        };
         var modalInstance;
         $scope.modalOpen_add = function (size) {
             modalInstance = $modal.open({
@@ -157,6 +132,32 @@ idsCore
             }, function () {
               //$log.info('Modal dismissed at: ' + new Date());
             });
+        };
+
+        $scope.delete = function(index,id) {
+            if(confirm("Bạn muốn xóa chuyên mục này ?")){
+                $scope.loading = true;
+                $scope.disable = true;
+                $http({
+                    method  : 'POST',
+                    url     : base_url+'group_news/delete',
+                    data    : {id:id},
+                    dataType: 'json'
+                    }).success(function (result){
+                        if(result.message == 'Done') {
+                            growl.success("Xóa thành công chuyên mục !");
+                            $scope.group_new.splice(index,1);
+                            $scope.disable = false;
+                            $scope.loading = false;
+                            $scope.list();
+                        }else {
+                            growl.warning("Lỗi kết nối server, vui lòng thử lại sau  !");    
+                        }
+                    }).error(function (err){
+                        growl.warning("Lỗi kết nối server, vui lòng thử lại sau !");
+                        console.log(err);
+                    });
+            }
         };
 
     }]); 

@@ -5,20 +5,18 @@
         <div class="row">
             <div class="col-md-3">
                 <input id="textFilter" type="text" class="form-control input-sm">
-                <span class="help-block">Filter</span>
+                <span class="help-block">Lọc</span>
             </div>
             <div class="col-md-3">
                 <select class="form-control input-sm" ng-change="filterTable(userStatus)" ng-model="userStatus">
-                    <option></option>
-                    <option value="active">Active</option>
-                    <option value="disabled">Disabled</option>
-                    <option value="suspended">Suspended</option>
+                    <option value="1">Kích hoạt</option>
+                    <option value="2">Không kích hoạt</option>
                 </select>
-                <span class="help-block">Status</span>
+                <span class="help-block">Trạng thái</span>
             </div>
             <div class="col-md-3">
-                <button ng-disabled="disable" class="btn btn-primary" ng-click="modalOpen_add('lg')">Add</button>
-                <a class="btn btn-default btn-sm" ng-click="clearFilters()">Clear</a>
+                <button ng-disabled="disable" class="btn btn-primary" ng-click="modalOpen_add('lg')">Thêm mới</button>
+                <!-- <a class="btn btn-default btn-sm" ng-click="clearFilters()">Clear</a> -->
             </div>
         </div>
         <div class="row">
@@ -39,15 +37,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in [1, 2 , 3, 4, 5, 6, 7]">
+                        <tr ng-repeat="list in list_data">
                             <td><input type="checkbox" ></td>
-                            <td><img src="http://sieuthi247vn.com/image/cache/data/lohoi/343_Forever_Aloe_Activator_970c60bc47-40x40.jpg" alt="Aloe Activator" style="padding: 1px; border: 1px solid #DDDDDD;"></td>
-                            <td><a href="">Sập giàn giáo trong công trường Formosa, 10 người tử vong</a></td>
-                            <td>Tin sản phẩm</td>
-                            <td width="35%"> Một vụ tai nạn lao động nghiêm trong vừa xảy ra tại công trường khu công nghiệp Formosa, huyện Kỳ Anh, Hà Tĩnh khiến 10 người chết, nhiều người bị thương...</td>
-                            <td>ThinhNV</td>
-                            <td>1.254 lượt</td>
-                            <td> <input type="checkbox" class="js-switch mini-switch" ng-init="extEl_switch_b = true" ng-model="extEl_switch_b" ui-switch /></td>
+                            <td>
+                                <img src="uploads/{{list.images}}" alt="Aloe Activator" style="width:60px;height:40px;padding: 1px; border: 1px solid #DDDDDD;">
+                            </td>
+                            <td><a href="">{{list.name}}</a></td>
+                            <td>{{list.group_news.name}}</td>
+                            <td width="35%">{{list.description}}</td>
+                            <td>{{list.author.name}}</td>
+                            <td>{{list.count_views}} lượt</td>
+                            <td>
+                                <input type="checkbox" class="js-switch mini-switch" ng-model="extEl_switch_b" ui-switch />
+                            </td>
                             <td>2 ngày trước</td>
                             <td><!-- Single button -->
                                 <div class="btn-group">
@@ -56,21 +58,30 @@
                                   </button>
                                   <ul class="dropdown-menu" role="menu">
                                     <li><a href="#">Cập nhật</a></li>
-                                    <li><a href="#">Xóa</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="delete($index,list.id)">Xóa</a></li>
                                   </ul>
                                 </div>
                             </td>
                         </tr>
                         
                     </tbody>
-                    <!-- <tfoot class="hide-if-no-paging">
+                    <tfoot class="hide-if-no-paging">
                         <tr>
                             <td colspan="5">
                                 <ul class="pagination pagination-sm"></ul>
                             </td>
                         </tr>
-                    </tfoot> -->
+                    </tfoot>
                 </table>
+                <pagination class="pull-right" total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" rotate="false" num-pages="numPages" ng-click="loadPage()"></pagination>
+                <div id="facebookG" ng-if="loading">
+                    <div id="blockG_1" class="facebook_blockG" >
+                    </div>
+                    <div id="blockG_2" class="facebook_blockG">
+                    </div>
+                    <div id="   blockG_3" class="facebook_blockG">
+                    </div>
+                </div>
             </div>
         </div>
     </div>

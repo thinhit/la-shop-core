@@ -21,9 +21,15 @@ class NewsController extends Controller {
 	 */
 	public function getIndex(Request $request)
 	{
-		$Model 		= new Models\News();
-		$Total 		= $Model->getAll()->count();
-		$datas 		= $this->paging($Model->getAll(), $request);
+		$stt = $request->input('stt');
+		$Model = new Models\News();
+		$Total = $Model->get()->count();
+		if(!empty($stt)) {
+			$Model = $Model->getAll()->where('status','=',$stt)->orderBy('id','DESC');
+		} else {
+			$Model = $Model->getAll()->orderBy('id','DESC');	
+		}
+		$datas = $this->paging($Model, $request);
 
 		$_objReturn = array(
 			"error" 	=> false,
@@ -73,17 +79,21 @@ class NewsController extends Controller {
 			$table->description   = $des;
 			$table->content       = $content;
 			$table->user_id       = $user_id;
-			$rs           = $table->save();
-			$LastInsertId = $table->id;
+			$table->status        = 0;// 0 : không chọn , 1 là được chọn
+			$rs                   = $table->save();
+			$username             = DB::table('users')->where('id','=',$user_id)->pluck('name');
+			$gr_news              = DB::table('group_news')->where('id','=',$category)->pluck('name');
+			$LastInsertId         = $table->id;
 			$data = ['id' => $LastInsertId,
 					'name'          => $name,
 					'create_time'   => date("Y-m-d H:i:s"),
-					'group_news_id' => $group_news_id,
-					'images'        => $images,
-					'description'   => $description,
+					'group_news_id' => $category,
+					'images'        => $image,
+					'description'   => $des,
 					'content'       => $content,
-					'user_id'       => $user_id,
-					'status'       => 0// 0 : không chọn , 1 là được chọn
+					'author'        => array('name' => $username),
+					'group_news'    => array('name' => $gr_news),
+					'status'        => 0// 0 : không chọn , 1 là được chọn
 					];
 			if($rs == true) {
 				$arr['data']    = $data;
@@ -97,6 +107,21 @@ class NewsController extends Controller {
 			$arr['message'] = 'null';
 		}
 		return Response::json($arr);
+	}
+
+
+	public function postDelete(Request $request) {
+		$id   = $request->input('id');
+		if(!isset($id) && empty($id)) {
+			return false;
+		}
+		$rs = DB::table('news')->where('id', '=',$id)->delete();
+		if($rs == true) {
+					$arr = array('error' => true,'message' => 'Done');
+		} else {
+			$arr = array('error' => false,'message' => 'not Done');
+		}
+		return json_encode($arr);
 	}
 
 }

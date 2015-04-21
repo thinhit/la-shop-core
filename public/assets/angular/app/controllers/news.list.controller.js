@@ -1,21 +1,30 @@
-"use strict";
+// "use strict";
 idsCore
     .controller('NewsListController', [
-        '$scope','$http', '$restful','$modal', 'FileUploader', 'CSRF_TOKEN',  function ($scope, $http, $restful, $modal, FileUploader, CSRF_TOKEN) {
+        '$scope','$http', '$restful','$modal','growl', 'FileUploader', 'CSRF_TOKEN',  function ($scope, $http, $restful, $modal,growl, FileUploader, CSRF_TOKEN) {
 
-        	$scope.list_data = [];
-            
-            console.log(123);
-        	$scope.loadPage = function (){
-        		$http.get(base_url + 'news').success(function (resp){
-        			console.log(resp)
+            $scope.list_data    = [];
+            $scope.currentPage  = 1;
+            $scope.itemsPerPage = 10; 
+        	$scope.loadPage = function (stt){
+               var stt = stt || "";
+               $scope.extEl_switch_b = false;
+        		$http.get(base_url + 'news?limit='+$scope.itemsPerPage+'&page='+$scope.currentPage+'&stt='+stt).success(function (resp){
+                    $scope.list_data  = resp.data;
+                    $scope.totalItems = resp.total;
+                    $scope.maxSize    = 5;
         		}).error(function (err){
         			console.log(err);
         		})
         	}
         	$scope.loadPage();
+            // select status 
+            $scope.filterTable = function(stt) {
+                $scope.loadPage(stt);
+            }
 
             var modalInstance;
+            //add
             $scope.modalOpen_add = function (size) {
                 $scope.news = {};
                 modalInstance = $modal.open({
@@ -105,13 +114,36 @@ idsCore
                     }
                 });
                 modalInstance.result.then(function (newItem) {
-                  $scope.group_new.unshift(newItem);
+                  $scope.list_data.unshift(newItem);
                   $scope.totalItems++;
                 }, function () {
                   //$log.info('Modal dismissed at: ' + new Date());
                 });
             };
-            //add
-
+            //del
+            $scope.delete = function(index,id) {
+                if(confirm("Bạn muốn xóa chuyên mục này ?")){
+                    $scope.loading = true;
+                    $scope.disable = true;
+                    $http({
+                        method  : 'POST',
+                        url     : base_url+'news/delete',
+                        data    : {id:id},
+                        dataType: 'json'
+                        }).success(function (result){
+                            if(result.message == 'Done') {
+                                growl.success("Xóa thành công tin tức !");
+                                $scope.disable = false;
+                                $scope.loading = false;
+                                $scope.loadPage();
+                            }else {
+                                growl.warning("Lỗi kết nối server, vui lòng thử lại sau  !");    
+                            }
+                        }).error(function (err){
+                            growl.warning("Lỗi kết nối server, vui lòng thử lại sau !");
+                            console.log(err);
+                        });
+                }
+            };
         }
     ])
