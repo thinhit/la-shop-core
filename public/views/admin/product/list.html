@@ -1,0 +1,93 @@
+<div class="row">
+    
+    <div class="col-md-12">
+        
+        <div class="row">
+            <div class="col-md-3">
+                <input id="textFilter" type="text" class="form-control input-sm">
+                <span class="help-block">Lọc</span>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control input-sm" ng-change="filterTable(userStatus)" ng-model="userStatus">
+                    <option value="1">Kích hoạt</option>
+                    <option value="2">Không kích hoạt</option>
+                </select>
+                <span class="help-block">Trạng thái</span>
+            </div>
+            <div class="col-md-3">
+                <button ng-disabled="disable" class="btn btn-primary" ng-click="modalOpen_add('lg')">Thêm mới</button>
+                <!-- <a class="btn btn-default btn-sm" ng-click="clearFilters()">Clear</a> -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-yuk2 toggle-arrow-tiny" id="footable_demo" data-filter="#textFilter" data-page-size="5">
+                    <thead>
+                        <tr>
+                            <th data-toggle="true"><input type="checkbox" class="icheck"></th>
+                            <th>Hình ảnh</th>
+                            <th >Tiêu đề</th>
+                            <th >Chuyên mục</th>
+                            <th >Tóm tắt</th>
+                            <th >Tác giả</th>
+                            <th >Lượt xem</th>
+                            <th >Trạng thái</th>
+                            <th >Tạo lúc</th>
+                            <th >Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="list in list_data">
+                            <td><input type="checkbox" ></td>
+                            <td>
+                                <img src="uploads/{{list.images}}" alt="Aloe Activator" style="width:60px;height:40px;padding: 1px; border: 1px solid #DDDDDD;">
+                            </td>
+                            <td><a>{{list.name}}</a></td>
+                            <td>{{list.group_news.name}}</td>
+                            <td width="35%">{{list.description}}</td>
+                            <td>{{list.author.name}}</td>
+                            <td>{{list.count_views}} lượt</td>
+                            <td ng-if="list.status == 1">
+                                <a ng-click="change_status(list)"><input type="checkbox" class="js-switch mini-switch" ng-init="extEl_switch_b = true" ng-model="extEl_switch_b" ui-switch ng-click="change()"/>
+                                </a>
+                            </td>
+                            <td ng-if="list.status == 2">
+                                <a ng-click="change_status(list)"><input type="checkbox" class="js-switch mini-switch" ng-init="extEl_switch_b = false" ng-model="extEl_switch_b" ui-switch ng-click="change()"/>
+                                </a>
+                            </td>
+                            <td>2 ngày trước</td>
+                            <td><!-- Single button -->
+                                <div class="btn-group">
+                                  <button type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    Hành động <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li><a href="javascript:void(0)" ng-click="modalOpen_update(list,$index)">Cập nhật</a></li>
+                                    <li><a href="javascript:void(0)" ng-click="delete($index,list.id)">Xóa</a></li>
+                                  </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                    <tfoot class="hide-if-no-paging">
+                        <tr>
+                            <td colspan="5">
+                                <ul class="pagination pagination-sm"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <pagination class="pull-right" total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" rotate="false" num-pages="numPages" ng-click="loadPage()"></pagination>
+                <div id="facebookG" ng-if="loading">
+                    <div id="blockG_1" class="facebook_blockG" >
+                    </div>
+                    <div id="blockG_2" class="facebook_blockG">
+                    </div>
+                    <div id="   blockG_3" class="facebook_blockG">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
