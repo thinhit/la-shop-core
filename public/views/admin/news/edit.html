@@ -20,20 +20,20 @@
 	        <span aria-hidden="true">×</span>
 	        <span class="sr-only">Đóng</span>
 	    </button>
-	    <h4 class="modal-title ng-binding">Chỉnh sửa tin mới</h4>
+	    <h4 class="modal-title ng-binding">Chỉnh sửa tin tức !</h4>
 	</div>
 	<form name="myForm">
 		<div class="form-group">
-            <label class="col-sm-1 control-label" for="name">Tiêu đề :</label>
+            <label class="col-sm-1 control-label" for="name" >Tiêu đề :</label>
             <div class="col-sm-11">
-                <input type="text" ng-model="row.name" id="name" class="form-control">
+                <input type="text" ng-model="row.name" id="name" class="form-control" ng-keyup="keyPress(event=$event)">
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
         	<label class="col-sm-1 control-label" for="group_news">Chuyên mục :</label>
             <div class="col-sm-11">
-				<select ng-model="category" ng-options = "gr.id as gr.name for gr in grs" name="group_news" id="group_news" class="form-control" required>
+				<select ng-model="row.group_news_id" ng-options = "gr.id as gr.name for gr in grs" name="group_news" id="group_news" class="form-control" required>
 	                <option value="">-- Chọn chuyên mục --</option>
 	            </select>
             </div>
@@ -43,14 +43,14 @@
             <label class="col-sm-1 control-label" for="name">Ảnh :</label>
             <div class="col-sm-11" style="margin-bottom:10px">
                 <input type="file" nv-file-select="" uploader="uploader" />
-                <img class="img" ng-src="{{'uploads/' + row.images}}" alt="" width="100px" ng-if="row.images" />
+                <img class="img" ng-src="{{'uploads/' + news.images}}" alt="" width="100px" ng-if="news.images" />
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
             <label class="col-sm-1 control-label" for="des">Tóm tắt :</label>
             <div class="col-sm-11">
-                <textarea name="des" ng-model="row.description" id="des" cols="30" rows="4" class="form-control"></textarea>
+                <textarea name="des" ng-model="row.description" id="des" cols="30" rows="4" class="form-control" ng-keyup="keyPress(event=$event)"></textarea>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -59,7 +59,7 @@
 
             <div class="col-sm-11">
             	<!-- <textarea text-angular name="content" id="content" cols="30" rows="4" class="form-control" data-parsley-required="true" data-parsley-minlength="40"></textarea> -->
-                <div text-angular ng-model="row.content"></div>
+                <div text-angular ng-model="row.content" ng-keyup="keyPress(event=$event)"></div>
 
             </div>
         </div>

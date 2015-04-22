@@ -19,7 +19,7 @@ idsCore
                             growl.success("Thay đổi thành công !",{disableCountDown: true});
                             $scope.disable = false;
                             $scope.loading = false;
-                            $scope.loadPage();
+                            angular.extend(list, result.data);
                         }
                     }).error(function (err){
                         growl.warning("Error!");
@@ -142,14 +142,15 @@ idsCore
             };
             //edit
             $scope.modalOpen_update = function (rs,index,size) {
+                $scope.news = {};
                 modalInstance = $modal.open({
                     templateUrl: 'views/admin/news/edit.html',
                     size: size,
                     controller: function ($scope, $modalInstance, growl, $http, FileUploader, CSRF_TOKEN) {
                         /*Upload file images*/ 
-                        $scope.category = 2;
                         $scope.news = {};
                         $scope.row = rs;
+                        $scope.news.images = rs.images;
                         var uploader = $scope.uploader = new FileUploader({
                             url         : base_url + 'upload',
                             alias       : 'newsFile',
@@ -186,24 +187,21 @@ idsCore
                             })    
                         }
                         $scope.groupnews();
-                        $scope.add_item = function() {
+                        $scope.edit_item = function() {
                             $scope.loading = true;
                             $scope.disable = true;
-                            var data = {name:$scope.name,category:$scope.news.category,images:$scope.news.images,des:$scope.des,content:$scope.compose_message};
+                            var data = {id:rs.id,name:$scope.row.name,category:$scope.row.group_news_id,images:$scope.news.images,des:$scope.row.description,content:$scope.row.content};
                             $http({
                                 method  : 'POST',
-                                url     : base_url+'news/post',
+                                url     : base_url+'news/push',
                                 data    : data,
                                 dataType: 'json'
                                 }).success(function (result){
                                     if(result.message == 'Done') {
                                         var config = {};
                                         $modalInstance.close(result.data);
-                                        growl.success("Thêm mới thành công !",{disableCountDown: true});
+                                        growl.success("Chỉnh sửa thành công !",{disableCountDown: true});
                                         $scope.disable = false;
-                                        $scope.loading = false;
-                                    } else if(result.message == 'exits_data') {
-                                        growl.warning("tiêu đề đã tồn tại!");
                                         $scope.loading = false;
                                     } else if(result.message == 'null') {
                                         growl.warning("Tiêu đề không được để trống!");
@@ -216,7 +214,7 @@ idsCore
                         };
 
                         $scope.ok = function () {
-                            $scope.add_item();
+                            $scope.edit_item();
                         };
                         $scope.cancel = function () {
                             $modalInstance.dismiss('cancel');
@@ -224,15 +222,14 @@ idsCore
                          
                         $scope.keyPress = function(event) {
                             if (event.keyCode == 13) {
-                                $scope.add_item();
+                                $scope.edit_item();
                             }
                         }
 
                     }
                 });
                 modalInstance.result.then(function (newItem) {
-                  $scope.list_data.unshift(newItem);
-                  $scope.totalItems++;
+                    angular.extend(rs, newItem); 
                 }, function () {
                   //$log.info('Modal dismissed at: ' + new Date());
                 });

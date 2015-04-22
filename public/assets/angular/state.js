@@ -85,7 +85,7 @@ idsCore
                     },
                     // this url is appended to parent url (/forms/regular_elements)
                     url: '/list',
-                    templateUrl: 'views/product.list.html',
+                    templateUrl: 'views/admin/product/list.html',
                     resolve: {
                         files: [
                             'uiLoad',

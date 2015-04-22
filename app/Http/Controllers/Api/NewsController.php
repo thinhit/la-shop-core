@@ -120,13 +120,57 @@ class NewsController extends Controller {
 		}
 		$rs = DB::table('news')->where('id',$id)->update(array('status' => $status));
 		if($rs == true) {
-			$arr = array('error' => true,'message' => 'Done');
+			$data = ['id' => $id,'status' => $status];
+			$arr = array('error' => true,'message' => 'Done','data'=>$data);
 		} else {
 			$arr = array('error' => false,'message' => 'not Done');
 		}
 		return json_encode($arr);
 	}
-
+	/*Edit*/
+	public function postPush(Request $request) {
+		$arr  = ['error' => false,'message' => '','data' => ''];
+		$id       = $request->input('id');
+		$name     = $request->input('name');
+		$category = $request->input('category');
+		$content  = $request->input('content');
+		$des      = $request->input('des');
+		$image    = $request->input('images');
+		$user_id  = $request->user()->id;
+		if(isset($name) && !empty($name)) {
+			$table                = Models\news::find($id);
+			$table->name          = $name;
+			$table->update_time   = date("Y-m-d H:i:s");
+			$table->group_news_id = $category;
+			$table->images        = $image;
+			$table->description   = $des;
+			$table->content       = $content;
+			$table->user_id       = $user_id;
+			$rs                   = $table->save();
+			$username             = DB::table('users')->where('id','=',$user_id)->pluck('name');
+			$gr_news              = DB::table('group_news')->where('id','=',$category)->pluck('name');
+			$data = ['id' => $id,
+						'name'          => $name,
+						'update_time'   => date("Y-m-d H:i:s"),
+						'group_news_id' => $category,
+						'images'        => $image,
+						'description'   => $des,
+						'content'       => $content,
+						'author'        => array('name' => $username),
+						'group_news'    => array('id'=>$category,'name' => $gr_news),
+					];
+			if($rs == true) {
+				$arr['data']    = $data;
+				$arr['message'] = 'Done';
+			} else {
+				$arr['error']   = true;
+				$arr['message'] = 'not done ';
+			}
+		} else {
+			$arr['message'] = 'null';
+		}
+		return json_encode($arr);
+	}
 	/*Delete */
 	public function postDelete(Request $request) {
 		$id   = $request->input('id');
