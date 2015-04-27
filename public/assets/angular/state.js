@@ -98,6 +98,7 @@ idsCore
                             }
                         ]
                     },
+                    controller:'product'
                 })
                 .state('auth.product.category',{
                     page_title:titlePrefix + '- Thể loại sản phẩm',

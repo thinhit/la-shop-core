@@ -122,7 +122,7 @@ class GroupnewsController extends Controller {
 		$Group_news = Models\Group_news::find($id);
 		$rs = $Group_news->delete();
 		if($rs == true) {
-					$arr = array('error' => true,'message' => 'Done');
+			$arr = array('error' => true,'message' => 'Done');
 		} else {
 			$arr = array('error' => false,'message' => 'not Done');
 		}

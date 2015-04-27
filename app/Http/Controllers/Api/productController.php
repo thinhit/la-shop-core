@@ -35,9 +35,9 @@ class ProductController extends Controller {
 	 * @return Response
 	 */
 	public function getIndex(Request $request){
-		$Model = new Models\Category();
+		$Model = new Models\Product();
 		$Total = $Model->get()->count();
-		$Model = $Model->orderBy('id','DESC');
+		$Model = $Model->getAll()->orderBy('id','DESC');	
 		$datas = $this->paging($Model, $request);
 
 		$_objReturn = array(

@@ -1,6 +1,7 @@
 <?php namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 class Group_news extends Model {
 
 	
@@ -18,4 +19,8 @@ class Group_news extends Model {
 	 *
 	 * @var array
 	 */
+	public function getData() {
+		$res = DB::table('group_news')->get();
+		return $res;
+	}
 }

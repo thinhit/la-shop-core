@@ -29,6 +29,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => 'auth'], function()
 	Route::controller('group_news'	, 'Api\GroupnewsController');
 	Route::controller('category'	, 'Api\CategoryController');
 	Route::controller('news'		, 'Api\NewsController');
+	Route::controller('product'		, 'Api\ProductController');
 	Route::controller('upload'		, 'Api\UploadController');
 
 });
