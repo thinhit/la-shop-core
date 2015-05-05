@@ -55,6 +55,31 @@ class ProductController extends Controller {
 
 	}
 
+	public function getCategory(request $request) {
+		$Model  = new Models\Category();
+		$Total  = $Model->get()->count();
+		$Model  = $Model->orderBy('id','DESC')->where('parent_key','=','0');
+		$datas  = $this->paging($Model, $request);
+		$result = array();
+		$_data    = DB::table('category')->get();
+		foreach ($datas as $k => $item) {
+			$_data    = DB::table('category')->where('parent_key','=',$item['id'])->get();
+			$result[] = array(
+				'id'       => $item['id'],
+				'name'     => $item['name'],
+				'children' => $_data
+				);
+		}
+		$_objReturn = array(
+			"error" 	=> false,
+			"data"		=> array(),
+			"message"	=> "",
+			"total"		=> $Total
+		);
+		$_objReturn['data'] = $result;
+		return Response::json($_objReturn);
+	}
+
 	public function postPost(Request $request){
 		$arr      = ['error' => false,'message' => '','data' => ''];
 		$col_data = DB::table('Category')->lists('name');

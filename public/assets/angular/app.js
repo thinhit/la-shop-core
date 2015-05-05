@@ -3,6 +3,7 @@ var base_url = 'http://localhost:8000/api/v1/';
 var idsCore = angular.module('idsCore', 
     [ 
         'ui.router', 
+        'ui.nested.combobox',
         'ngAnimate', 
         'ui.load', 
         'ngSanitize', 
@@ -19,10 +20,7 @@ var idsCore = angular.module('idsCore',
         'angularTreeview',
         
     ]
-).constant('angularMomentConfig', {
-    preprocess: 'unix', // optional
-    timezone: 'Asia/Ho_Chi_Minh' // optional
-});;
+);
 
 var csrftoken =  (function() {
     // not need Jquery for doing that

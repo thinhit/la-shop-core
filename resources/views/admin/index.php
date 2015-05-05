@@ -25,9 +25,6 @@
     <!-- source code pro google fonts -->
         <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" media="screen">
 
-    <!-- moment.js (date library) -->
-        <script src="assets/js/moment-with-langs.min.js"></script>
-        <script src="assets/js/angular-moment.js"></script>
     <!-- jQuery -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
@@ -42,6 +39,10 @@
         <script src="assets/angular/angularjs/angular-sanitize.min.js"></script>
         <script src="assets/angular/angularjs/angular-resource.min.js"></script>
     <!-- ui-router -->
+    <!-- moment.js (date library) -->
+        <script src="assets/js/angular-moment.js"></script>
+    <!-- tree combobox -->
+        <script src="assets/js/ng-nested-combobox.js"></script>
         <script src="assets/angular/plugins/ui-router/angular-ui-router.min.js"></script>
     <!-- breadcrumbs -->
         <script src="assets/angular/plugins/breadcrumbs/angular-breadcrumb.min.js"></script>
@@ -108,6 +109,7 @@
         <link href="assets/css/animation.css" rel="stylesheet" media="screen" id="mainCss">
         <!-- edit xeditable -->
         <link href="assets/css/xeditable.css" rel="stylesheet" media="screen" id="mainCss">
+        <link href="assets/css/nestedCombobox.css" rel="stylesheet" media="screen" id="mainCss">
         <link href="assets/css/animation.css" rel="stylesheet" media="screen" id="mainCss">
 
     </head>

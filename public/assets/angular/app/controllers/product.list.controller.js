@@ -51,6 +51,12 @@ idsCore
                     templateUrl: 'views/admin/product/add.html',
                     size: size,
                     controller: function ($scope, $modalInstance, growl, $http, FileUploader, CSRF_TOKEN) {
+                        $scope.tipall = [
+                             {"ID":"1", "TIPIS":"GroupName1", "DESC":"name"},
+                             {"ID":"2", "TIPIS":"GroupName1", "DESC":"name1"},
+                             {"ID":"3", "TIPIS":"GroupName2", "DESC":"name2"},
+                             {"ID":"4", "TIPIS":"GroupName1", "DESC":"name3"},
+                        ];
                         /*Upload file images*/ 
                         $scope.news = {};
                         var uploader = $scope.uploader = new FileUploader({
@@ -81,14 +87,15 @@ idsCore
                             }
                         };
             
-                        $scope.groupnews =  function() {
-                            $http.get(base_url+ 'news/groupnews').success(function(resp){
+                        $scope.category =  function() {
+                            $http.get(base_url+ 'product/category').success(function(resp){
                                 $scope.grs = resp.data;
+                                console.log(resp.data);
                             }).error(function(err){
                                 console.log(err);
                             })    
                         }
-                        $scope.groupnews();
+                        $scope.category();
                         $scope.add_item = function() {
                             $scope.loading = true;
                             $scope.disable = true;

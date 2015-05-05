@@ -20,7 +20,7 @@ idsCore
         $scope.list();
         $scope.delete = function(currentNode) {
             if(currentNode.children != '' && currentNode.hasOwnProperty('children')) {
-                growl.warning("vui lòng xóa hết dữ liệu bên trong trước!");
+                growl.warning("vui lòng xóa hết dữ liệu bên trong trước!",{disableCountDown: true});
             } else {
                 $scope.loading = true;
                 $scope.disable = true;
@@ -31,7 +31,7 @@ idsCore
                     dataType: 'json'
                     }).success(function (result){
                         if(result.message == 'Done') {
-                            growl.success("Xóa thành công !");
+                            growl.success("Xóa thành công !",{disableCountDown: true});
                             $scope.disable = false;
                             $scope.loading = false;
                             $scope.list();
@@ -70,10 +70,10 @@ idsCore
                                     $scope.disable = false;
                                     $scope.loading = false;
                                 } else if(result.message == 'exits_data') {
-                                    growl.warning("Tên đã tồn tại!");
+                                    growl.warning("Tên đã tồn tại!",{disableCountDown: true});
                                     $scope.loading = false;
                                 } else if(result.message == 'null') {
-                                    growl.warning("Yêu cập nhập tên!");
+                                    growl.warning("Yêu cập nhập tên!",{disableCountDown: true});
                                     $scope.loading = false;
                                 }
                             }).error(function (err){
@@ -120,14 +120,14 @@ idsCore
                             }).success(function (result){
                                 if(result.message == 'Done') {
                                     $modalInstance.close(result.data);
-                                    growl.success("Chỉnh sửa thành công!");
+                                    growl.success("Chỉnh sửa thành công!",{disableCountDown: true});
                                     $scope.disable = false;
                                     $scope.loading = false;
                                 } else if(result.message == 'exits_data') {
-                                    growl.warning("Tên đã tồn tại!");
+                                    growl.warning("Tên đã tồn tại!",{disableCountDown: true});
                                     $scope.loading = false;
                                 } else if(result.message == 'null') {
-                                    growl.warning("Yêu cầu nhập tên!");
+                                    growl.warning("Yêu cầu nhập tên!",{disableCountDown: true});
                                     $scope.loading = false;
                                 }
                             }).error(function (err){
