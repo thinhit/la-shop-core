@@ -27,6 +27,7 @@
 
     <!-- moment.js (date library) -->
         <script src="assets/js/moment-with-langs.min.js"></script>
+        <script src="assets/js/angular-moment.js"></script>
     <!-- jQuery -->
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>

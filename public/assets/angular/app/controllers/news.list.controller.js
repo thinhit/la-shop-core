@@ -1,7 +1,10 @@
 // "use strict";
 idsCore
     .controller('NewsListController', [
-        '$scope','$http', '$restful','$modal','growl', 'FileUploader', 'CSRF_TOKEN',  function ($scope, $http, $restful, $modal,growl, FileUploader, CSRF_TOKEN) {
+        '$scope','$http', '$restful','$modal','growl', 'FileUploader', 'CSRF_TOKEN',  function ($scope, $http, $restful, $modal,$moment,growl, FileUploader, CSRF_TOKEN) {
+            $scope.message = {
+               time: new Date()
+            };
             $scope.list_data    = [];
             $scope.currentPage  = 1;
             $scope.itemsPerPage = 10; 

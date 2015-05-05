@@ -48,7 +48,7 @@ idsCore
             $scope.modalOpen_add = function (size) {
                 $scope.news = {};
                 modalInstance = $modal.open({
-                    templateUrl: 'views/admin/news/add.html',
+                    templateUrl: 'views/admin/product/add.html',
                     size: size,
                     controller: function ($scope, $modalInstance, growl, $http, FileUploader, CSRF_TOKEN) {
                         /*Upload file images*/ 

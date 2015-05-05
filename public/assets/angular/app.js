@@ -16,9 +16,13 @@ var idsCore = angular.module('idsCore',
         'textAngular',
         'xeditable',
         'angularFileUpload',
-        'angularTreeview'
+        'angularTreeview',
+        
     ]
-);
+).constant('angularMomentConfig', {
+    preprocess: 'unix', // optional
+    timezone: 'Asia/Ho_Chi_Minh' // optional
+});;
 
 var csrftoken =  (function() {
     // not need Jquery for doing that
