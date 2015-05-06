@@ -22,28 +22,38 @@
 	    </button>
 	    <h4 class="modal-title ng-binding">Thêm mới sản phẩm !</h4>
 	</div>
+    <i style="margin:20px;">Các trường đánh dấu <span class="star">(*)</span> yêu cầu nhập đầy đủ !</i>
 	<form name="myForm">
 		<div class="form-group">
-            <label class="col-sm-2 control-label" for="name">Tên sản phẩm :</label>
+            <label class="col-sm-2 control-label" for="name">Tên sản phẩm <span class="star">(*)</span>:</label>
             <div class="col-sm-10">
-                <input type="text" ng-model="name" id="name" class="form-control" ng-keyup="keyPress(event=$event)">
+                <input type="text" ng-model="name" id="name" class="form-control" ng-keyup="keyPress(event=$event)" >
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
-        	<label class="col-sm-2 control-label" for="group_news">Loại sản phẩm :</label>
+        	<label class="col-sm-2 control-label" for="group_news">Loại sản phẩm <span class="star">(*)</span>:</label>
             <div class="col-sm-10">
-				<select ng-model="tipost" 
-                    ng-options="tip.DESC group by tip.TIPIS for tip in tipall"><br>
-                </select>
+				<select class="form-control"
+                    ng-model="category"
+                    ng-options="value.id as value.label group by value.group for value in myOptions" >
+                    <option>--------------</option>
+                </select>             
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="name">Ảnh :</label>
+            <label class="col-sm-2 control-label" for="name">Ảnh :<span class="star">(*)</span></label>
             <div class="col-sm-10" style="margin-bottom:10px">
                 <input type="file" nv-file-select="" uploader="uploader" />
-                <img class="img" ng-src="{{'uploads/' + news.images}}" alt="" width="100px" ng-if="news.images" />
+                <img class="img" ng-src="{{'uploads/' + pro.images}}" alt="" width="100px" ng-if="pro.images" />
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="price">Giá <span class="star">(*)</span>:</label>
+            <div class="col-sm-10">
+                <input type="text" ng-model="price" id="price" class="form-control" ng-keyup="keyPress(event=$event)" >
             </div>
         </div>
         <div class="clearfix"></div>
@@ -62,19 +72,17 @@
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="des">Mô tả :</label>
+            <label class="col-sm-2 control-label" for="des">Mô tả <span class="star">(*)</span>:</label>
             <div class="col-sm-10">
-                <textarea name="des" ng-model="des" id="des" cols="30" rows="4" class="form-control" ng-keyup="keyPress(event=$event)"></textarea>
+                <textarea name="des" ng-model="des" id="des" cols="30" rows="4" class="form-control" ng-keyup="keyPress(event=$event)" ></textarea>
             </div>
         </div>
         <div class="clearfix"></div>
 		<div class="form-group">
-            <label class="col-sm-2 control-label" for="des" >Nội dung :</label>
-
+            <label class="col-sm-2 control-label" for="content" >Nội dung :</label>
             <div class="col-sm-10">
             	<!-- <textarea text-angular name="content" id="content" cols="30" rows="4" class="form-control" data-parsley-required="true" data-parsley-minlength="40"></textarea> -->
                 <div text-angular ng-model="compose_message" ng-keyup="keyPress(event=$event)"></div>
-
             </div>
         </div>
         <div class="clearfix"></div>
@@ -84,7 +92,6 @@
 		    <button ng-click="cancel()" class="btn btn-default btn-sm" type="button">Close</button>
 		</div>
 	</form>
-
 	<div id="facebookG" ng-if="loading">
 	    <div id="blockG_1" class="facebook_blockG" >
 	    </div>

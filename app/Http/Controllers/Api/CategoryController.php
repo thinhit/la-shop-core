@@ -20,8 +20,8 @@ class CategoryController extends Controller {
 	*/
 
 	/**
-	 * Create a new controller instance.
-	 *
+	 * Hiển thị danh sách loại sản phẩm
+	 * @author daotc94@gmail.com
 	 * @return void
 	 */
 	public function __construct()
@@ -34,7 +34,7 @@ class CategoryController extends Controller {
 	 *
 	 * @return Response
 	 */
-
+	/*Hiển thị danh sách loại sản phẩm*/
 	public function getIndex(Request $request) {
 		$Model  = new Models\Category();
 		$Total  = $Model->get()->count();
@@ -72,7 +72,7 @@ class CategoryController extends Controller {
 		return Response::json($_objReturn);
 	}
 
-
+	/*thêm mới loại sản phẩm*/
 	public function postPost(Request $request){
 		$arr        = ['error' => false,'message' => '','data' => ''];
 		$col_data   = DB::table('Category')->lists('name');
@@ -87,8 +87,8 @@ class CategoryController extends Controller {
 				$Category->name        = $name;
 				$Category->create_time = date("Y-m-d H:i:s");
 				$Category->parent_key  = $parent_key;
-				$rs           = $Category->save();
-				$LastInsertId = $Category->id;
+				$rs                    = $Category->save();
+				$LastInsertId          = $Category->id;
 				$data = ['id' => $LastInsertId,
 							'name' => $name,
 							'create_time' => date("Y-m-d H:i:s"),
@@ -108,7 +108,7 @@ class CategoryController extends Controller {
 		}
 		return Response::json($arr);
 	}
-	
+	/*chỉnh sửa loại sản phẩm*/
 	public function postPush(Request $request) {
 		$id         = $request->input('id');
 		$name       = $request->input('name');
@@ -133,6 +133,7 @@ class CategoryController extends Controller {
 		return json_encode($arr);
 	}
 
+	/*Xóa loại sản phẩm*/
 	public function postDelete(Request $request) {
 		$id   = $request->input('id');
 		if(!isset($id) && empty($id)) {

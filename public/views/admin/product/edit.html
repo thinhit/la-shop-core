@@ -1,6 +1,6 @@
 <style type="text/css">
-	.form-control{margin-bottom: 10px}
-	.modal-dialog {
+    .form-control{margin-bottom: 10px}
+    .modal-dialog {
   width: 100%;
   height: 100%;
   padding: 0;
@@ -15,68 +15,88 @@
 
 
 <div class="modal-content modal-fullscreen">
-	<div class="modal-header ng-scope">
-	    <button ng-click="cancel()" class="close" type="button">
-	        <span aria-hidden="true">×</span>
-	        <span class="sr-only">Đóng</span>
-	    </button>
-	    <h4 class="modal-title ng-binding">Chỉnh sửa tin tức !</h4>
-	</div>
-	<form name="myForm">
-		<div class="form-group">
-            <label class="col-sm-1 control-label" for="name" >Tiêu đề :</label>
-            <div class="col-sm-11">
+    <div class="modal-header ng-scope">
+        <button ng-click="cancel()" class="close" type="button">
+            <span aria-hidden="true">×</span>
+            <span class="sr-only">Đóng</span>
+        </button>
+        <h4 class="modal-title ng-binding">Chỉnh sửa sản phẩm !</h4>
+    </div>
+    <form name="myForm">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="name">Tên sản phẩm :</label>
+            <div class="col-sm-10">
                 <input type="text" ng-model="row.name" id="name" class="form-control" ng-keyup="keyPress(event=$event)">
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
-        	<label class="col-sm-1 control-label" for="group_news">Chuyên mục :</label>
-            <div class="col-sm-11">
-				<select ng-model="row.group_news_id" ng-options = "gr.id as gr.name for gr in grs" name="group_news" id="group_news" class="form-control" required>
-	                <option value="">-- Chọn chuyên mục --</option>
-	            </select>
+            <label class="col-sm-2 control-label" for="group_news">Loại sản phẩm :</label>
+            <div class="col-sm-10">
+                <select class="form-control"
+                    ng-model="row.category_id"
+                    ng-options="value.id as value.label group by value.group for value in myOptions">
+                    <option>--------------</option>
+                </select>             
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
-            <label class="col-sm-1 control-label" for="name">Ảnh :</label>
-            <div class="col-sm-11" style="margin-bottom:10px">
+            <label class="col-sm-2 control-label" for="name">Ảnh :</label>
+            <div class="col-sm-10" style="margin-bottom:10px">
                 <input type="file" nv-file-select="" uploader="uploader" />
-                <img class="img" ng-src="{{'uploads/' + news.images}}" alt="" width="100px" ng-if="news.images" />
+                <img class="img" ng-src="{{'uploads/' + pro.images}}" alt="" width="100px" ng-if="pro.images" />
             </div>
         </div>
         <div class="clearfix"></div>
         <div class="form-group">
-            <label class="col-sm-1 control-label" for="des">Tóm tắt :</label>
-            <div class="col-sm-11">
+            <label class="col-sm-2 control-label" for="price">Giá :</label>
+            <div class="col-sm-10">
+                <input type="text" ng-model="row.price" id="price" class="form-control" ng-keyup="keyPress(event=$event)">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="des">Alt :</label>
+            <div class="col-sm-10">
+                <input type="text" ng-model="row.alt" id="alt" class="form-control" ng-keyup="keyPress(event=$event)">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="des">Từ khóa :</label>
+            <div class="col-sm-10">
+                <input type="text" ng-model="row.keywords" id="keywords" class="form-control" ng-keyup="keyPress(event=$event)">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="des">Mô tả :</label>
+            <div class="col-sm-10">
                 <textarea name="des" ng-model="row.description" id="des" cols="30" rows="4" class="form-control" ng-keyup="keyPress(event=$event)"></textarea>
             </div>
         </div>
         <div class="clearfix"></div>
-		<div class="form-group">
-            <label class="col-sm-1 control-label" for="content">Nội dung :</label>
-
-            <div class="col-sm-11">
-            	<!-- <textarea text-angular name="content" id="content" cols="30" rows="4" class="form-control" data-parsley-required="true" data-parsley-minlength="40"></textarea> -->
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="content" >Nội dung :</label>
+            <div class="col-sm-10">
+                <!-- <textarea text-angular name="content" id="content" cols="30" rows="4" class="form-control" data-parsley-required="true" data-parsley-minlength="40"></textarea> -->
                 <div text-angular ng-model="row.content" ng-keyup="keyPress(event=$event)"></div>
-
             </div>
         </div>
         <div class="clearfix"></div>
 
-		<div class="modal-footer ng-scope" style="text-align:right">
-		    <input ng-click="ok()" class="btn btn-primary btn-sm" type="button" ng-disabled="myForm.name.$invalid" value="Save changes">
-		    <button ng-click="cancel()" class="btn btn-default btn-sm" type="button">Close</button>
-		</div>
-	</form>
-
-	<div id="facebookG" ng-if="loading">
-	    <div id="blockG_1" class="facebook_blockG" >
-	    </div>
-	    <div id="blockG_2" class="facebook_blockG">
-	    </div>
-	    <div id="blockG_3" class="facebook_blockG">
-	    </div>
-	</div>
+        <div class="modal-footer ng-scope" style="text-align:right">
+            <input ng-click="ok()" class="btn btn-primary btn-sm" type="button" ng-disabled="myForm.name.$invalid" value="Save changes">
+            <button ng-click="cancel()" class="btn btn-default btn-sm" type="button">Close</button>
+        </div>
+    </form>
+    <div id="facebookG" ng-if="loading">
+        <div id="blockG_1" class="facebook_blockG" >
+        </div>
+        <div id="blockG_2" class="facebook_blockG">
+        </div>
+        <div id="blockG_3" class="facebook_blockG">
+        </div>
+    </div>
 </div>

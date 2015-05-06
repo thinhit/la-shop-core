@@ -25,15 +25,16 @@
                     <thead>
                         <tr>
                             <th data-toggle="true"><input type="checkbox" class="icheck"></th>
-                            <th>Hình ảnh</th>
-                            <th >Tiêu đề</th>
-                            <th >Loại sản phẩm</th>
-                            <th >Mô tả ngắn</th>
-                            <th >Alt</th>
-                            <th >Từ khóa</th>
-                            <th >Trạng thái</th>
-                            <th >Tạo lúc</th>
-                            <th >Hành động</th>
+                            <th> Hình ảnh</th>
+                            <th> Tiêu đề</th>
+                            <th> Loại sản phẩm</th>
+                            <th> Giá</th>
+                            <th> Mô tả ngắn</th>
+                            <th> Alt</th>
+                            <th> Từ khóa</th>
+                            <th> Trạng thái</th>
+                            <th> Tạo lúc</th>
+                            <th> Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,11 +43,12 @@
                             <td>
                                 <img src="uploads/{{list.images}}" alt="Aloe Activator" style="width:60px;height:40px;padding: 1px; border: 1px solid #DDDDDD;">
                             </td>
-                            <td></td>
-                            <td></td>
-                            <td width="35%"></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{list.name}}</td>
+                            <td>{{list.category.name}}</td>
+                            <td>{{format(list.price)}}</td>
+                            <td>{{list.description}}</td>
+                            <td>{{list.alt}}</td>
+                            <td>{{list.keywords}}</td>
                             <td ng-if="list.status == 1">
                                 <a ng-click="change_status(list)"><input type="checkbox" class="js-switch mini-switch" ng-init="extEl_switch_b = true" ng-model="extEl_switch_b" ui-switch ng-click="change()"/>
                                 </a>
@@ -55,7 +57,7 @@
                                 <a ng-click="change_status(list)"><input type="checkbox" class="js-switch mini-switch" ng-init="extEl_switch_b = false" ng-model="extEl_switch_b" ui-switch ng-click="change()"/>
                                 </a>
                             </td>
-                            <td>2 ngày trước</td>
+                            <td>{{list.create_time}}</td>
                             <td><!-- Single button -->
                                 <div class="btn-group">
                                   <button type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

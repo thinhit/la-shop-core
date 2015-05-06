@@ -20,8 +20,8 @@ class GroupnewsController extends Controller {
 	*/
 
 	/**
-	 * Create a new controller instance.
-	 *
+	 * Hiển thị danh sách nhóm tin tức
+	 * @author daotc94@gmail.com
 	 * @return void
 	 */
 	public function __construct()
@@ -29,11 +29,7 @@ class GroupnewsController extends Controller {
 		$this->middleware('auth');
 	}
 
-	/**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
+	/*Hiển thị Nhóm tin tức*/
 	public function getIndex(Request $request)
 	{	
 		$Model = new Models\Group_news();
@@ -55,7 +51,7 @@ class GroupnewsController extends Controller {
 
 
 	}
-
+	/*Thêm mới nhóm tin tức*/
 	public function postPost(Request $request){
 		$arr      = ['error' => false,'message' => '','data' => ''];
 		$col_data = DB::table('group_news')->lists('name');
@@ -85,6 +81,7 @@ class GroupnewsController extends Controller {
 		return Response::json($arr);
 	}
 	
+	/*Chỉnh sửa nhóm tin tức*/
 	public function postPush(Request $request) {
 		$id                      = $request->input('id');
 		$name                    = $request->input('name');
@@ -113,6 +110,7 @@ class GroupnewsController extends Controller {
 		return json_encode($arr);
 	}
 
+	/*Xóa nhóm tin tức*/
 	public function postDelete(Request $request) {
 		$id   = $request->input('id');
 		if(!isset($id) && empty($id)) {

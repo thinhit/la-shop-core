@@ -30,7 +30,11 @@ idsCore
                var stt = stt || "";
         		$http.get(base_url + 'news?limit='+$scope.itemsPerPage+'&page='+$scope.currentPage+'&stt='+stt).success(function (resp){
                     $scope.list_data  = resp.data;
-                    $scope.totalItems = resp.total;
+                    if(stt =='') {
+                        $scope.totalItems = resp.total;    
+                    } else {
+                        $scope.totalItems = 1;    
+                    }
                     $scope.maxSize    = 5;
         		}).error(function (err){
         			console.log(err);
@@ -41,7 +45,6 @@ idsCore
             $scope.filterTable = function(stt) {
                 $scope.loadPage(stt);
             }
-            // 
 
             var modalInstance;
             //add
@@ -106,10 +109,10 @@ idsCore
                                         $scope.disable = false;
                                         $scope.loading = false;
                                     } else if(result.message == 'exits_data') {
-                                        growl.warning("tiêu đề đã tồn tại!");
+                                        growl.warning("tiêu đề đã tồn tại!",{disableCountDown: true});
                                         $scope.loading = false;
                                     } else if(result.message == 'null') {
-                                        growl.warning("Tiêu đề không được để trống!");
+                                        growl.warning("Tiêu đề không được để trống!",{disableCountDown: true});
                                         $scope.loading = false;
                                     }
                                 }).error(function (err){
@@ -204,7 +207,7 @@ idsCore
                                         $scope.disable = false;
                                         $scope.loading = false;
                                     } else if(result.message == 'null') {
-                                        growl.warning("Tiêu đề không được để trống!");
+                                        growl.warning("Tiêu đề không được để trống!",{disableCountDown: true});
                                         $scope.loading = false;
                                     }
                                 }).error(function (err){
@@ -251,10 +254,10 @@ idsCore
                                 $scope.loading = false;
                                 $scope.loadPage();
                             }else {
-                                growl.warning("Lỗi kết nối server, vui lòng thử lại sau  !");    
+                                growl.warning("Lỗi kết nối server, vui lòng thử lại sau  !",{disableCountDown: true});    
                             }
                         }).error(function (err){
-                            growl.warning("Lỗi kết nối server, vui lòng thử lại sau !");
+                            growl.warning("Lỗi kết nối server, vui lòng thử lại sau !",{disableCountDown: true});
                             console.log(err);
                         });
                 }

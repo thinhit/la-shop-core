@@ -20,8 +20,8 @@ class ProductController extends Controller {
 	*/
 
 	/**
-	 * Create a new controller instance.
-	 *
+	 * Hiển thị danh sách sản phẩm
+	 * @author daotc94@gmail.com
 	 * @return void
 	 */
 	public function __construct()
@@ -29,16 +29,18 @@ class ProductController extends Controller {
 		$this->middleware('auth');
 	}
 
-	/**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
+	/*Hiển thị danh sách tin tức */
 	public function getIndex(Request $request){
+		$stt   = $request->input('stt');
 		$Model = new Models\Product();
 		$Total = $Model->get()->count();
-		$Model = $Model->getAll()->orderBy('id','DESC');	
-		$datas = $this->paging($Model, $request);
+		if(!empty($stt)) {
+			$datas = DB::table('product')->where('status','=',$stt)->get();
+			// $Model = $Model->getAll()->where('status','=',$stt)->orderBy('id','DESC');
+		} else {
+			$Model = $Model->getAll()->orderBy('id','DESC');	
+			$datas = $this->paging($Model, $request);
+		}
 
 		$_objReturn = array(
 			"error" 	=> false,
@@ -55,20 +57,30 @@ class ProductController extends Controller {
 
 	}
 
+	/*Tree combobox category*/
 	public function getCategory(request $request) {
 		$Model  = new Models\Category();
 		$Total  = $Model->get()->count();
 		$Model  = $Model->orderBy('id','DESC')->where('parent_key','=','0');
 		$datas  = $this->paging($Model, $request);
 		$result = array();
-		$_data    = DB::table('category')->get();
 		foreach ($datas as $k => $item) {
 			$_data    = DB::table('category')->where('parent_key','=',$item['id'])->get();
-			$result[] = array(
-				'id'       => $item['id'],
-				'name'     => $item['name'],
-				'children' => $_data
+			if(!empty($_data)) {
+				foreach ($_data as $value) {
+					$result[] = array(
+					'id'    => $value->id,
+					'group' => $item['name'],
+					'label' => $value->name
+					);
+				}	
+			} else {
+				$result[] = array(
+					'id'    => $item['id'],
+					'label' => $item['name']
 				);
+			}
+			
 		}
 		$_objReturn = array(
 			"error" 	=> false,
@@ -80,25 +92,46 @@ class ProductController extends Controller {
 		return Response::json($_objReturn);
 	}
 
+	/*Thêm mới sản phẩm*/
 	public function postPost(Request $request){
 		$arr      = ['error' => false,'message' => '','data' => ''];
-		$col_data = DB::table('Category')->lists('name');
+		$col_data = DB::table('product')->lists('name');
 		$name     = $request->input('name');
-		$parent_key = $request->input('parent_id');
-		if(isset($name) && !empty($name)) {
+		$category = $request->input('category');
+		$image    = $request->input('images');
+		$alt      = $request->input('alt');
+		$des      = $request->input('des');
+		$content  = $request->input('content');
+		$price    = $request->input('price');
+		$keywords = $request->input('keywords');
+		if(isset($name) && !empty($name) && !empty($category) && !empty($image) && !empty($price) && !empty($des)) {
 			if(in_array($name,$col_data)) {
 				$arr['message'] = 'exits_data';
 			} else {
-				$Category              = new Models\Category;
-				$Category->name        = $name;
-				$Category->create_time = date("Y-m-d H:i:s");
-				$Category->parent_key = $parent_key;
-				$rs           = $Category->save();
-				$LastInsertId = $Category->id;
+				$table              = new Models\Product;
+				$table->name        = $name;
+				$table->category_id = $category;
+				$table->alt         = $alt;
+				$table->keywords    = $keywords;
+				$table->images      = $image;
+				$table->description = $des;
+				$table->content     = $content;
+				$table->price       = $price;
+				$table->create_time = date("Y-m-d H:i:s");
+				$rs                 = $table->save();
+				$LastInsertId       = $table->id;
+				$_category            = DB::table('category')->where('id','=',$category)->pluck('name');
 				$data = ['id' => $LastInsertId,
-							'name' => $name,
-							'create_time' => date("Y-m-d H:i:s"),
-							'parent_key' => $parent_key];
+							'name'        => $name,
+							'alt'         => $alt,
+							'keywords'    => $keywords,
+							'images'      => $image,
+							'price'       => intval($price),
+							'description' => $des,
+							'content'     => $content,
+							'status'      => 2,//2 không kích hoạt,1 là đã kích hoạt
+							'category'    => ['name' => $_category],
+							'create_time' => date("Y-m-d H:i:s")];
 				if($rs == true) {
 					$arr['data']    = $data;
 					$arr['message'] = 'Done';
@@ -114,27 +147,61 @@ class ProductController extends Controller {
 		return Response::json($arr);
 	}
 	
+	/*chỉnh sửa trạng thái */
+	public function postChangestatus(Request $request) {
+		$id     = $request->input('id');
+		$stt    = $request->input('status');
+		$status = $stt == 1 ? 2 : 1;
+		if(!isset($id) && empty($id)) {
+			return false;
+		}
+		$rs = DB::table('product')->where('id',$id)->update(array('status' => $status));
+		if($rs == true) {
+			$data = ['id' => $id,'status' => $status];
+			$arr = array('error' => true,'message' => 'Done','data'=>$data);
+		} else {
+			$arr = array('error' => false,'message' => 'not Done');
+		}
+		return json_encode($arr);
+	}
+
 	public function postPush(Request $request) {
-		$id                      = $request->input('id');
-		$name                    = $request->input('name');
-		$col_data = DB::table('category')->lists('name');
+		$id       = $request->input('id');
+		$name     = $request->input('name');
+		$category = $request->input('category');
+		$image    = $request->input('images');
+		$alt      = $request->input('alt');
+		$des      = $request->input('des');
+		$content  = $request->input('content');
+		$price    = $request->input('price');
+		$keywords = $request->input('keywords');
+		$col_data = DB::table('product')->lists('name');
 		if(isset($name) && !empty($name)) {
-			if(in_array($name,$col_data)) {
-				$arr['message'] = 'exits_data';
+			$table              = Models\product::find($id);
+			$table->name        = $name;
+			$table->category_id = $category;
+			$table->alt         = $alt;
+			$table->keywords    = $keywords;
+			$table->images      = $image;
+			$table->description = $des;
+			$table->content     = $content;
+			$table->price       = $price;
+			$table->update_time = date("Y-m-d H:i:s");
+			$rs = $table->save();
+			$data = ['id' => $id,
+						'name'        => $name,
+						'price'       => $price,
+						'alt'         => $alt,
+						'update_time' => date("Y-m-d H:i:s")
+
+					];
+			$arr = ['error' => false,'message' => '','data' => ''];
+			if($rs == true) {
+				$arr['data']    = $data;
+				$arr['message'] = 'Done';
 			} else {
-				$Category              = Models\Category::find($id);
-				$Category->name        = $name;
-				$Category->update_time = date("Y-m-d H:i:s");
-				$rs = $Category->save();
-				$data = ['id' => $id,'name' => $name,'update_time' => date("Y-m-d H:i:s")];
-				$arr = ['error' => false,'message' => '','data' => ''];
-				if($rs == true) {
-					$arr['data']    = $data;
-					$arr['message'] = 'Done';
-				} else {
-					$arr['error']   = true;
-					$arr['message'] = 'not done ';
-				}
+				$arr['error']   = true;
+				$arr['message'] = 'not done ';
 			}
 		} else {
 			$arr['message'] = 'null';
@@ -142,14 +209,15 @@ class ProductController extends Controller {
 		return json_encode($arr);
 	}
 
+	/*xóa sản phẩm*/
 	public function postDelete(Request $request) {
 		$id   = $request->input('id');
 		if(!isset($id) && empty($id)) {
 			return false;
 		}
-		$Category = new Models\Category;
-		$Category = Models\Category::find($id);
-		$rs = $Category->delete();
+		$table = new Models\Product;
+		$table = Models\Product::find($id);
+		$rs = $table->delete();
 		if($rs == true) {
 					$arr = array('error' => true,'message' => 'Done');
 		} else {

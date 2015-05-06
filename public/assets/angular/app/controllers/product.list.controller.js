@@ -11,7 +11,7 @@ idsCore
                 var data = {status:list.status,id:list.id};
                 $http({
                     method  : 'POST',
-                    url     : base_url+'news/changestatus',
+                    url     : base_url+'product/changestatus',
                     data    : data,
                     dataType: 'json'
                     }).success(function (result){
@@ -30,7 +30,11 @@ idsCore
                var stt = stt || "";
         		$http.get(base_url + 'product?limit='+$scope.itemsPerPage+'&page='+$scope.currentPage+'&stt='+stt).success(function (resp){
                     $scope.list_data  = resp.data;
-                    $scope.totalItems = resp.total;
+                    if(stt =='') {
+                        $scope.totalItems = resp.total;    
+                    } else {
+                        $scope.totalItems = 1;    
+                    }
                     $scope.maxSize    = 5;
         		}).error(function (err){
         			console.log(err);
@@ -41,24 +45,35 @@ idsCore
             $scope.filterTable = function(stt) {
                 $scope.loadPage(stt);
             }
+            $scope.format = function(price) {
+                 a = format_price(price,'VND');
+                 if(a == null || a == 0) {
+                    return "0 VND";
+                 } else {
+                    return a;   
+                 }
+                 
+            }
             // 
 
             var modalInstance;
             //add
             $scope.modalOpen_add = function (size) {
-                $scope.news = {};
                 modalInstance = $modal.open({
                     templateUrl: 'views/admin/product/add.html',
                     size: size,
                     controller: function ($scope, $modalInstance, growl, $http, FileUploader, CSRF_TOKEN) {
-                        $scope.tipall = [
-                             {"ID":"1", "TIPIS":"GroupName1", "DESC":"name"},
-                             {"ID":"2", "TIPIS":"GroupName1", "DESC":"name1"},
-                             {"ID":"3", "TIPIS":"GroupName2", "DESC":"name2"},
-                             {"ID":"4", "TIPIS":"GroupName1", "DESC":"name3"},
-                        ];
+                        $scope.category =  function() {
+                            $http.get(base_url+ 'product/category').success(function(resp){
+                                $scope.myOptions = resp.data;
+                            }).error(function(err){
+                                console.log(err);
+                            })    
+                        }
+                        $scope.category();
+
                         /*Upload file images*/ 
-                        $scope.news = {};
+                        $scope.pro = {};
                         var uploader = $scope.uploader = new FileUploader({
                             url         : base_url + 'upload',
                             alias       : 'newsFile',
@@ -83,40 +98,29 @@ idsCore
 
                         uploader.onCompleteItem = function(fileItem, response, status, headers) {
                             if(!response.error){
-                                $scope.news.images = response.data;
+                                $scope.pro.images = response.data;
                             }
                         };
-            
-                        $scope.category =  function() {
-                            $http.get(base_url+ 'product/category').success(function(resp){
-                                $scope.grs = resp.data;
-                                console.log(resp.data);
-                            }).error(function(err){
-                                console.log(err);
-                            })    
-                        }
-                        $scope.category();
                         $scope.add_item = function() {
                             $scope.loading = true;
                             $scope.disable = true;
-                            var data = {name:$scope.name,category:$scope.news.category,images:$scope.news.images,des:$scope.des,content:$scope.compose_message};
+                            var data = { name:$scope.name,category:$scope.category,images:$scope.pro.images,des:$scope.des,content:$scope.compose_message,alt:$scope.alt,keywords:$scope.keywords,price:$scope.price};
                             $http({
                                 method  : 'POST',
-                                url     : base_url+'news/post',
+                                url     : base_url+'product/post',
                                 data    : data,
                                 dataType: 'json'
                                 }).success(function (result){
                                     if(result.message == 'Done') {
-                                        var config = {};
                                         $modalInstance.close(result.data);
                                         growl.success("Thêm mới thành công !",{disableCountDown: true});
                                         $scope.disable = false;
                                         $scope.loading = false;
                                     } else if(result.message == 'exits_data') {
-                                        growl.warning("tiêu đề đã tồn tại!");
+                                        growl.warning("tiêu đề đã tồn tại!",{disableCountDown: true});
                                         $scope.loading = false;
                                     } else if(result.message == 'null') {
-                                        growl.warning("Tiêu đề không được để trống!");
+                                        growl.warning("Yêu cầu nhập đầy đủ dữ liệu!",{disableCountDown: true});
                                         $scope.loading = false;
                                     }
                                 }).error(function (err){
@@ -149,15 +153,14 @@ idsCore
             };
             //edit
             $scope.modalOpen_update = function (rs,index,size) {
-                $scope.news = {};
                 modalInstance = $modal.open({
-                    templateUrl: 'views/admin/news/edit.html',
+                    templateUrl: 'views/admin/product/edit.html',
                     size: size,
                     controller: function ($scope, $modalInstance, growl, $http, FileUploader, CSRF_TOKEN) {
                         /*Upload file images*/ 
-                        $scope.news = {};
+                        $scope.pro = {};
                         $scope.row = rs;
-                        $scope.news.images = rs.images;
+                        $scope.pro.images = rs.images;
                         var uploader = $scope.uploader = new FileUploader({
                             url         : base_url + 'upload',
                             alias       : 'newsFile',
@@ -182,25 +185,25 @@ idsCore
 
                         uploader.onCompleteItem = function(fileItem, response, status, headers) {
                             if(!response.error){
-                                $scope.news.images = response.data;
+                                $scope.pro.images = response.data;
                             }
                         };
             
-                        $scope.groupnews =  function() {
-                            $http.get(base_url+ 'news/groupnews').success(function(resp){
-                                $scope.grs = resp.data;
+                        $scope.category =  function() {
+                            $http.get(base_url+ 'product/category').success(function(resp){
+                                $scope.myOptions = resp.data;
                             }).error(function(err){
                                 console.log(err);
                             })    
                         }
-                        $scope.groupnews();
+                        $scope.category();
                         $scope.edit_item = function() {
                             $scope.loading = true;
                             $scope.disable = true;
-                            var data = {id:rs.id,name:$scope.row.name,category:$scope.row.group_news_id,images:$scope.news.images,des:$scope.row.description,content:$scope.row.content};
+                            var data = { id:rs.id,name:$scope.row.name,category:$scope.row.category_id,images:$scope.pro.images,des:$scope.row.description,content:$scope.content,alt:$scope.row.alt,keywords:$scope.row.keywords,price:$scope.row.price};
                             $http({
                                 method  : 'POST',
-                                url     : base_url+'news/push',
+                                url     : base_url+'product/push',
                                 data    : data,
                                 dataType: 'json'
                                 }).success(function (result){
@@ -211,7 +214,7 @@ idsCore
                                         $scope.disable = false;
                                         $scope.loading = false;
                                     } else if(result.message == 'null') {
-                                        growl.warning("Tiêu đề không được để trống!");
+                                        growl.warning("Tiêu đề không được để trống!",{disableCountDown: true});
                                         $scope.loading = false;
                                     }
                                 }).error(function (err){
@@ -248,7 +251,7 @@ idsCore
                     $scope.disable = true;
                     $http({
                         method  : 'POST',
-                        url     : base_url+'news/delete',
+                        url     : base_url+'product/delete',
                         data    : {id:id},
                         dataType: 'json'
                         }).success(function (result){

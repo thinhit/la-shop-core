@@ -8,18 +8,18 @@ use DB;
 use Illuminate\Support\Facades\Session;
 class NewsController extends Controller {
 
+	/**
+	 * Hiển thị danh sách tin tức
+	 * @author thinhit http://github.con/thinhit
+	 * @return Response <json>
+	 */
 
 	public function __construct()
 	{
 		$this->middleware('auth');
 	}
 
-	/**
-	 * Hiển thị danh sách tin tức
-	 * @author thinhit http://github.con/thinhit
-	 * @return Response <json>
-	 */
-	/*Get data */
+	/*Hiển thị danh sách tin tức */
 	public function getIndex(Request $request)
 	{
 		$stt = $request->input('stt');
@@ -62,7 +62,7 @@ class NewsController extends Controller {
 		}
 		return Response::json($_objReturn);
 	}
-	/*Add */
+	/*Thêm mới tin tức */
 	public function postPost(Request $request){
 		$arr      = ['error' => false,'message' => '','data' => ''];
 		$name     = $request->input('name');
@@ -110,7 +110,7 @@ class NewsController extends Controller {
 		return Response::json($arr);
 	}
 
-	/*change status */
+	/*chỉnh sửa trạng thái */
 	public function postChangestatus(Request $request) {
 		$id     = $request->input('id');
 		$stt    = $request->input('status');
@@ -127,7 +127,7 @@ class NewsController extends Controller {
 		}
 		return json_encode($arr);
 	}
-	/*Edit*/
+	/*chỉnh sửa tin tức*/
 	public function postPush(Request $request) {
 		$arr  = ['error' => false,'message' => '','data' => ''];
 		$id       = $request->input('id');
@@ -171,7 +171,7 @@ class NewsController extends Controller {
 		}
 		return json_encode($arr);
 	}
-	/*Delete */
+	/*xóa tin tức */
 	public function postDelete(Request $request) {
 		$id   = $request->input('id');
 		if(!isset($id) && empty($id)) {

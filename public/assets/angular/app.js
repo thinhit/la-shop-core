@@ -22,6 +22,11 @@ var idsCore = angular.module('idsCore',
     ]
 );
 
+// format price
+function format_price(n, currency) {
+    return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,") + " " + currency;
+}
+
 var csrftoken =  (function() {
     // not need Jquery for doing that
     var metas = window.document.getElementsByTagName('meta');
