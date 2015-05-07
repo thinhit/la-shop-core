@@ -177,9 +177,16 @@ class NewsController extends Controller {
 		if(!isset($id) && empty($id)) {
 			return false;
 		}
-		$rs = DB::table('news')->where('id', '=',$id)->delete();
+		$image = DB::table('news')->where('id','=',$id)->pluck('images');
+		$rs    = DB::table('news')->where('id', '=',$id)->delete();
+		$path  = "uploads/".$image;
 		if($rs == true) {
-					$arr = array('error' => true,'message' => 'Done');
+			if($image !=""){
+				unlink($path);	
+			} else {
+				// code
+			} 
+			$arr = array('error' => true,'message' => 'Done');
 		} else {
 			$arr = array('error' => false,'message' => 'not Done');
 		}

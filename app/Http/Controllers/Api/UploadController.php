@@ -40,10 +40,11 @@ class UploadController extends Controller {
 		return ':)';
 	}
 	public function postIndex(Request $request){
-		$file = $request->file('newsFile');
-		$extension = $file->getClientOriginalExtension();
+		$file         = $request->file('newsFile');
+		$extension    = $file->getClientOriginalExtension();
 		$_newFileName = 'news_thumb/'.md5($file->getFilename().time()).'.'.$extension;
-		$result = Storage::disk('upload')->put($_newFileName,  File::get($file));
+		// Image::resize($, 200, 200);
+		$result       = Storage::disk('upload')->put($_newFileName,  File::get($file));
 		
 		return Response::json(array(
 			"error" 	=> !$result,

@@ -16,7 +16,7 @@ idsCore
                     dataType: 'json'
                     }).success(function (result){
                         if(result.message == 'Done') {
-                            growl.success("Thay đổi thành công !",{disableCountDown: true});
+                            growl.success("Cập nhật trạng thái thành công !",{disableCountDown: true});
                             $scope.disable = false;
                             $scope.loading = false;
                             angular.extend(list, result.data);
@@ -214,7 +214,7 @@ idsCore
                                         $scope.disable = false;
                                         $scope.loading = false;
                                     } else if(result.message == 'null') {
-                                        growl.warning("Tiêu đề không được để trống!",{disableCountDown: true});
+                                        growl.warning("Yêu cầu nhập dữ liệu đầy đủ!",{disableCountDown: true});
                                         $scope.loading = false;
                                     }
                                 }).error(function (err){

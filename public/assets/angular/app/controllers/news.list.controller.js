@@ -16,7 +16,7 @@ idsCore
                     dataType: 'json'
                     }).success(function (result){
                         if(result.message == 'Done') {
-                            growl.success("Thay đổi thành công !",{disableCountDown: true});
+                            growl.success("Cập nhật trạng thái thành công !",{disableCountDown: true});
                             $scope.disable = false;
                             $scope.loading = false;
                             angular.extend(list, result.data);

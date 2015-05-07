@@ -120,7 +120,7 @@ class ProductController extends Controller {
 				$table->create_time = date("Y-m-d H:i:s");
 				$rs                 = $table->save();
 				$LastInsertId       = $table->id;
-				$_category            = DB::table('category')->where('id','=',$category)->pluck('name');
+				$_category          = DB::table('category')->where('id','=',$category)->pluck('name');
 				$data = ['id' => $LastInsertId,
 							'name'        => $name,
 							'alt'         => $alt,
@@ -166,17 +166,18 @@ class ProductController extends Controller {
 	}
 
 	public function postPush(Request $request) {
-		$id       = $request->input('id');
-		$name     = $request->input('name');
-		$category = $request->input('category');
-		$image    = $request->input('images');
-		$alt      = $request->input('alt');
-		$des      = $request->input('des');
-		$content  = $request->input('content');
-		$price    = $request->input('price');
-		$keywords = $request->input('keywords');
-		$col_data = DB::table('product')->lists('name');
-		if(isset($name) && !empty($name)) {
+		$id        = $request->input('id');
+		$name      = $request->input('name');
+		$category  = $request->input('category');
+		$image     = $request->input('images');
+		$alt       = $request->input('alt');
+		$des       = $request->input('des');
+		$content   = $request->input('content');
+		$price     = $request->input('price');
+		$keywords  = $request->input('keywords');
+		$col_data  = DB::table('product')->lists('name');
+		$_category = DB::table('category')->where('id','=',$category)->pluck('name');
+		if(isset($name) && !empty($name) && !empty($category) && !empty($image) && !empty($price) && !empty($des)) {
 			$table              = Models\product::find($id);
 			$table->name        = $name;
 			$table->category_id = $category;
@@ -192,7 +193,13 @@ class ProductController extends Controller {
 						'name'        => $name,
 						'price'       => $price,
 						'alt'         => $alt,
-						'update_time' => date("Y-m-d H:i:s")
+						'update_time' => date("Y-m-d H:i:s"),
+						'keywords'    => $keywords,
+						'images'      => $image,
+						'price'       => intval($price),
+						'description' => $des,
+						'content'     => $content,
+						'category'    => ['name' => $_category],
 
 					];
 			$arr = ['error' => false,'message' => '','data' => ''];
@@ -217,9 +224,16 @@ class ProductController extends Controller {
 		}
 		$table = new Models\Product;
 		$table = Models\Product::find($id);
-		$rs = $table->delete();
+		$image = DB::table('product')->where('id','=',$id)->pluck('images');
+		$rs    = $table->delete();
+		$path  = "uploads/".$image;
 		if($rs == true) {
-					$arr = array('error' => true,'message' => 'Done');
+			if($image !=""){
+				unlink($path);	
+			} else {
+				// code
+			}
+			$arr = array('error' => true,'message' => 'Done');
 		} else {
 			$arr = array('error' => false,'message' => 'not Done');
 		}
